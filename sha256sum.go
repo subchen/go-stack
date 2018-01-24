@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-func sha256sumString(file string) (string, error) {
+func Sha256sumString(file string) (string, error) {
 	f, err := os.Open(file)
 	if err != nil {
 		return "", err
@@ -23,8 +23,8 @@ func sha256sumString(file string) (string, error) {
 	return fmt.Sprintf("%x", h.Sum(nil)), nil
 }
 
-func sha256sumFile(file string) error {
-	sum, err := sha256sumString(file)
+func Sha256sumFile(file string) error {
+	sum, err := Sha256sumString(file)
 	if err != nil {
 		return err
 	}
