@@ -1,4 +1,4 @@
-package gstack
+package checksum
 
 import (
 	"crypto/sha256"
@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-func Sha256sumString(file string) (string, error) {
+func Sha256sum(file string) (string, error) {
 	f, err := os.Open(file)
 	if err != nil {
 		return "", err
@@ -23,8 +23,8 @@ func Sha256sumString(file string) (string, error) {
 	return fmt.Sprintf("%x", h.Sum(nil)), nil
 }
 
-func Sha256sumFile(file string) error {
-	sum, err := Sha256sumString(file)
+func Sha256sumAsFile(file string) error {
+	sum, err := Sha256sum(file)
 	if err != nil {
 		return err
 	}
