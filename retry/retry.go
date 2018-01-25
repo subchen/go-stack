@@ -16,7 +16,8 @@ type Operation struct {
 	Randomize  bool          // Randomizes the timeouts by multiplying with a factor between 0.5 to 1.5
 }
 
-type RetryFunc func() error
+// RetryFunc is func, attampt is 0-based
+type RetryFunc func(attempt int) error
 
 // Attampt accpets the function fn that is to be retried and executes it.
 func (o *Operation) Attempt(fn RetryFunc) error {
@@ -40,16 +41,15 @@ func (o *Operation) Attempt(fn RetryFunc) error {
 
 	attempt := 0
 	for true {
-		err := fn()
+		err := fn(attempt)
 		if err == nil {
 			return nil
 		}
 
-		if attempt >= retries {
+		attempt++
+		if attempt > retries {
 			return err
 		}
-
-		attempt++
 
 		sleep := float64(minInteval) * math.Pow(factor, float64(attempt))
 		sleep = math.Min(sleep, float64(maxInteval))
