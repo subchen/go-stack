@@ -15,8 +15,8 @@ func ExampleOperation_Attempt() {
 		Randomize:  true,
 	}
 
-	err := operation.Attempt(func() error {
-		fmt.Printf("%v do something\n", time.Now())
+	err := operation.Attempt(func(attempt int) error {
+		fmt.Printf("%v: %d: do something\n", time.Now(), attempt)
 
 		return fmt.Errorf("some error")
 	})
