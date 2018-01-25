@@ -1,45 +1,62 @@
 package retry
 
 import (
+	"math"
+	"math/rand"
 	"time"
 )
 
+// Operation defines the options for retry
+// sleepInteval = min(random * minInteval * pow(factor, attempt), maxInteval)
 type Operation struct {
-	Retries int
-	Sleep   time.Duration
-	Step    time.Duration
+	Retries    int           // The maximum amount of times to retry the operation
+	MinInteval time.Duration // default is 1s
+	MaxInteval time.Duration // defaults is equals to MinInteval
+	Factor     float64       // The exponential factor to use, default is 1
+	Randomize  bool          // Randomizes the timeouts by multiplying with a factor between 0.5 to 1.5
 }
 
 type RetryFunc func() error
 
+// Attampt accpets the function fn that is to be retried and executes it.
 func (o *Operation) Attempt(fn RetryFunc) error {
 	retries := o.Retries
-	sleep := o.Sleep
-	step := o.Step
+	minInteval := o.MinInteval
+	maxInteval := o.MaxInteval
+	factor := o.Factor
 
-	if retries <= 0 {
-		panic("retries must be large than zero")
+	if retries < 0 {
+		retries = 0
 	}
-	if sleep <= 0 {
-		panic("sleep must be large than zero")
+	if minInteval <= 0 {
+		minInteval = 1 * time.Second
 	}
-	if step < 0 {
-		panic("step must be large or equals than zero")
+	if maxInteval < minInteval {
+		maxInteval = minInteval
+	}
+	if factor < 1 {
+		factor = 1
 	}
 
+	attempt := 0
 	for true {
 		err := fn()
 		if err == nil {
 			return nil
 		}
 
-		if retries <= 0 {
+		if attempt >= retries {
 			return err
 		}
 
-		retries--
-		sleep += step
-		time.Sleep(sleep)
+		attempt++
+
+		sleep := float64(minInteval) * math.Pow(factor, float64(attempt))
+		sleep = math.Min(sleep, float64(maxInteval))
+		if o.Randomize {
+			sleep = (rand.Float64() + 0.5) * sleep
+		}
+		time.Sleep(time.Duration(sleep))
 	}
 
 	panic("unreachable")

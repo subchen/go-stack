@@ -9,9 +9,10 @@ import (
 
 func ExampleOperation_Attempt() {
 	operation := &retry.Operation{
-		Retries: 3,
-		Sleep:   1 * time.Second,
-		Step:    200 * time.Millisecond,
+		Retries:    3,
+		MinInteval: 1 * time.Second,
+		Factor:     1.2,
+		Randomize:  true,
 	}
 
 	err := operation.Attempt(func() error {
