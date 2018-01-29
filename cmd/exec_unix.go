@@ -19,9 +19,5 @@ func ShellOutput(scripts string) (output string, err error) {
 }
 
 func Shell(scripts string) error {
-	shell := "/bin/sh"
-	if other := os.Getenv("SHELL"); other != "" {
-		shell = other
-	}
 	return Exec(getShell(), "-c", scripts)
 }
