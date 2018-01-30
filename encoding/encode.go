@@ -1,4 +1,4 @@
-package gstack
+package encoding
 
 import (
 	"strings"
@@ -7,9 +7,9 @@ import (
 	"golang.org/x/text/encoding/simplifiedchinese"
 )
 
-func CharsetDecodeBytes(data []byte, charset string) []byte {
+func DecodeBytes(data []byte, charset string) []byte {
 	charset = strings.ToUpper(charset)
-	if charset == "" || charset == "UTF-8" {
+	if charset == "" || charset == "UTF8" || charset == "UTF-8" {
 		return data
 	}
 
@@ -17,7 +17,7 @@ func CharsetDecodeBytes(data []byte, charset string) []byte {
 	if charset == "GBK" || charset == "GB2312" || charset == "GB18030" {
 		encoding = simplifiedchinese.GB18030
 	} else {
-		panic("Unsupported charset: " + charset)
+		panic("unsupported charset: " + charset)
 	}
 
 	dst := make([]byte, len(data)*2)
@@ -28,9 +28,9 @@ func CharsetDecodeBytes(data []byte, charset string) []byte {
 	return dst[:n]
 }
 
-func CharsetEncodeBytes(data []byte, charset string) []byte {
+func EncodeBytes(data []byte, charset string) []byte {
 	charset = strings.ToUpper(charset)
-	if charset == "" || charset == "UTF-8" {
+	if charset == "" || charset == "UTF8" || charset == "UTF-8" {
 		return data
 	}
 
@@ -38,7 +38,7 @@ func CharsetEncodeBytes(data []byte, charset string) []byte {
 	if charset == "GBK" || charset == "GB2312" || charset == "GB18030" {
 		encoding = simplifiedchinese.GB18030
 	} else {
-		panic("Unsupported charset: " + charset)
+		panic("unsupported charset: " + charset)
 	}
 
 	dst := make([]byte, len(data)*2)
@@ -49,10 +49,10 @@ func CharsetEncodeBytes(data []byte, charset string) []byte {
 	return dst[:n]
 }
 
-func CharsetDecodeString(data string, charset string) string {
-	return string(CharsetDecodeBytes([]byte(data), charset))
+func DecodeString(data string, charset string) string {
+	return string(DecodeBytes([]byte(data), charset))
 }
 
-func CharsetEncodeString(data string, charset string) string {
-	return string(CharsetEncodeBytes([]byte(data), charset))
+func EncodeString(data string, charset string) string {
+	return string(EncodeBytes([]byte(data), charset))
 }
