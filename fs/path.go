@@ -1,12 +1,12 @@
-package gstack
+package fs
 
 import (
 	"os"
 	"path/filepath"
 )
 
-// ProcessGetBinDir returns process binary directory
-func ProcessGetBinDir() string {
+// GetProcessBinDir returns process binary directory
+func GetProcessBinDir() string {
 	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
 	if err != nil {
 		panic(err)
@@ -14,8 +14,8 @@ func ProcessGetBinDir() string {
 	return dir
 }
 
-// ProcessGetPWD returns process binary directory
-func ProcessGetPWD() string {
+// GetProcessPWD returns process working directory
+func GetProcessPWD() string {
 	dir := os.Getenv("PWD")
 	if dir == "" {
 		dir = "."
