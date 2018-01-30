@@ -1,9 +1,8 @@
 // +build windows
-package exec
+package cmd
 
 import (
 	"os"
-	"os/exec
 )
 
 func getShell() string {
