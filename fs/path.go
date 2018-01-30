@@ -3,6 +3,7 @@ package fs
 import (
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 // GetProcessBinDir returns process binary directory
@@ -21,4 +22,11 @@ func GetProcessPWD() string {
 		dir = "."
 	}
 	return dir
+}
+
+// BasenameWithoutExt returns file basename without ext
+func BasenameWithoutExt(file string) string {
+	name := filepath.Base(file)
+	ext := filepath.Ext(name)
+	return strings.TrimSuffix(name, ext)
 }
