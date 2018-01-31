@@ -1,4 +1,5 @@
 // +build !windows
+
 package cmd
 
 import (
@@ -13,10 +14,10 @@ func getShell() string {
 	return shell
 }
 
-func ShellOutput(scripts string) (output string, err error) {
-	return ExecOutput(getShell(), "-c", scripts)
+func ShellOutput(script string) (output string, err error) {
+	return ExecOutput(getShell(), "-c", script)
 }
 
-func Shell(scripts string) error {
-	return Exec(getShell(), "-c", scripts)
+func Shell(script string) error {
+	return Exec(getShell(), "-c", script)
 }
