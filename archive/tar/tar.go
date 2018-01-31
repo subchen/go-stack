@@ -34,7 +34,7 @@ func (a Archive) Close() error {
 func New(filename string) Archive {
 	f, err := os.Create(filename)
 	if err != nil {
-		panic("unable to create archive file: " + filename)
+		panic("unable to create .tar.gz file: " + filename)
 	}
 	gw := gzip.NewWriter(f)
 	tw := tar.NewWriter(gw)
