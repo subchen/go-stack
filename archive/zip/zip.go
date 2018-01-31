@@ -55,10 +55,11 @@ func (a Archive) Add(name, path string) error {
 	}
 
 	header, err := zip.FileInfoHeader(stat)
-	header.Method = zip.Deflate
 	if err != nil {
 		return err
 	}
+	header.Method = zip.Deflate
+	header.Name = name
 	f, err := a.z.CreateHeader(header)
 	if err != nil {
 		return err
