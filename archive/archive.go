@@ -2,8 +2,6 @@
 package archive
 
 import (
-	"os"
-
 	"path/filepath"
 
 	"github.com/subchen/go-stack/archive/tar"
