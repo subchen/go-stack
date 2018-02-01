@@ -1,6 +1,16 @@
-hash: ab8e6898075cad1c43bda097865a231ab3dfdc36f462ab6f2057c4c7023930f4
-updated: 2018-01-30T09:37:33.508041728Z
+hash: 0bb165e767d9a1f7c8feb6add762370b4b7ef239c2cf59744a80fab6dc70bbcf
+updated: 2018-02-01T09:50:04.377350637Z
 imports:
+- name: github.com/mattn/go-isatty
+  version: 0360b2af4f38e8d38c7fce2a9f4e702702d73a39
+- name: github.com/subchen/gls
+  version: 8f06b25d1df24dec7286ef32940b0f975a14bfca
+- name: github.com/subchen/go-log
+  version: 6d38bf9391fd08e42df0220cd297b47e907005cb
+- name: golang.org/x/sys
+  version: d75a52659825e75fff6158388dddc6a5b04f9ba5
+  subpackages:
+  - unix
 - name: golang.org/x/text
   version: 470f45bf29f4147d6fbd7dfd0a02a848e49f5bf4
   subpackages:
@@ -9,4 +19,8 @@ imports:
   - encoding/internal/identifier
   - encoding/simplifiedchinese
   - transform
-testImports: []
+testImports:
+- name: github.com/subchen/gstack
+  version: bc0eb70a8fc5aa256fac23ca7582d5153e95fc60
+  subpackages:
+  - assert

@@ -9,12 +9,17 @@ func Exists(filename string) bool {
 	return err == nil
 }
 
-func FileExists(filename string) bool {
+func IsDir(filename string) bool {
+	info, err := os.Stat(filename)
+	return err == nil && info.IsDir()
+}
+
+func IsFile(filename string) bool {
 	info, err := os.Stat(filename)
 	return err == nil && !info.IsDir()
 }
 
-func DirExists(filename string) bool {
-	info, err := os.Stat(filename)
-	return err == nil && info.IsDir()
+func IsSymlink(filename string) bool {
+	info, err := os.Lstat(filename)
+	return err == nil && (info.Mode()&os.ModeSymlink != 0)
 }

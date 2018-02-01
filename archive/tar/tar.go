@@ -60,7 +60,7 @@ func (a Archive) Add(name, path string) error {
 	if stat.IsDir() {
 		return errors.New("unable to add dir into archive: " + path)
 	}
-	
+
 	header := new(tar.Header)
 	header.Name = name
 	header.Size = stat.Size()
