@@ -2,10 +2,10 @@ package maps
 
 import "testing"
 
-func TestInterfaceInterfaceMap(t *testing.T) {
-	m := NewInterfaceInterfaceMap()
+func TestStringInterfaceMap(t *testing.T) {
+	m := NewStringInterfaceMap()
 
-	m.CopyFrom(map[interface{}]interface{}{
+	m.CopyFrom(map[string]interface{}{
 		"a": "1",
 		"b": "2",
 		"c": "3",
