@@ -1,11 +1,11 @@
-package strmap
+package maps
 
 import "testing"
 
-func TestCopyOnWriteMap(t *testing.T) {
-	m := NewCopyOnWriteMap()
+func TestInterfaceInterfaceMap(t *testing.T) {
+	m := NewInterfaceInterfaceMap()
 
-	m.Copy(map[Key]Value{
+	m.CopyFrom(map[interface{}]interface{}{
 		"a": "1",
 		"b": "2",
 		"c": "3",
@@ -17,19 +17,19 @@ func TestCopyOnWriteMap(t *testing.T) {
 		t.Fail()
 	}
 
-	if _, ok := m.GetOK("e"); ok {
+	if _, ok := m.Load("e"); ok {
 		t.Fail()
 	}
 
 	m.Remove("d")
 
-	if _, ok := m.GetOK("d"); ok {
+	if _, ok := m.Load("d"); ok {
 		t.Fail()
 	}
 
 	m.Clear()
 
-	if _, ok := m.GetOK("a"); ok {
+	if _, ok := m.Load("a"); ok {
 		t.Fail()
 	}
 

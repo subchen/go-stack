@@ -1,11 +1,11 @@
-package strmap
+package maps
 
 import "testing"
 
-func TestConcurrentMap(t *testing.T) {
-	m := NewConcurrentMap()
+func TestStringInterfaceCOWMap(t *testing.T) {
+	m := NewStringInterfaceCOWMap()
 
-	m.Copy(map[string]interface{}{
+	m.CopyFrom(map[string]interface{}{
 		"a": "1",
 		"b": "2",
 		"c": "3",
@@ -17,19 +17,19 @@ func TestConcurrentMap(t *testing.T) {
 		t.Fail()
 	}
 
-	if _, ok := m.GetOK("e"); ok {
+	if _, ok := m.Load("e"); ok {
 		t.Fail()
 	}
 
 	m.Remove("d")
 
-	if _, ok := m.GetOK("d"); ok {
+	if _, ok := m.Load("d"); ok {
 		t.Fail()
 	}
 
 	m.Clear()
 
-	if _, ok := m.GetOK("a"); ok {
+	if _, ok := m.Load("a"); ok {
 		t.Fail()
 	}
 
