@@ -1,8 +1,8 @@
 assert
 ======================
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/subchen/gstack/assert)](https://goreportcard.com/report/github.com/subchen/gstack/assert)
-[![GoDoc](https://godoc.org/github.com/subchen/gstack/assert?status.svg)](https://godoc.org/github.com/subchen/gstack/assert)
+[![Go Report Card](https://goreportcard.com/badge/github.com/subchen/go-stack/assert)](https://goreportcard.com/report/github.com/subchen/go-stack/assert)
+[![GoDoc](https://godoc.org/github.com/subchen/go-stack/assert?status.svg)](https://godoc.org/github.com/subchen/go-stack/assert)
 
 The assert package provides some helpful methods that allow you to write better test code in Go.
 
@@ -13,7 +13,7 @@ Installation
 ---------------
 
 ```bash
-$ go get github.com/subchen/gstack/assert
+$ go get github.com/subchen/go-stack/assert
 ```
 
 Usage
@@ -22,7 +22,7 @@ Usage
 ```go
 import (
     "testing"
-    "github.com/subchen/gstack/assert"
+    "github.com/subchen/go-stack/assert"
 )
 
 func TestToString(t *testing.T) {
@@ -37,7 +37,7 @@ if you assert many times, use the below:
 ```go
 import (
     "testing"
-    "github.com/subchen/gstack/assert"
+    "github.com/subchen/go-stack/assert"
 )
 
 func TestToString(t *testing.T) {
@@ -63,5 +63,5 @@ exit status 1
 
 ### API on godoc.org
 
-https://godoc.org/github.com/subchen/gstack/assert
+https://godoc.org/github.com/subchen/go-stack/assert
 

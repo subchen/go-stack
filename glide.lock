@@ -9,8 +9,3 @@ imports:
   - encoding/internal/identifier
   - encoding/simplifiedchinese
   - transform
-testImports:
-- name: github.com/subchen/gstack
-  version: bc0eb70a8fc5aa256fac23ca7582d5153e95fc60
-  subpackages:
-  - assert

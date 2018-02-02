@@ -36,8 +36,8 @@ func (f RuntimeFrame) Name() string {
 }
 
 // Format formats the frame according to the fmt.Formatter interface.
-//    %v    github.com/subchen/gstack/runtime_stack:106
-//    %+v   gstack.RuntimeCallers() (github.com/subchen/gstack/runtime_stack:106)
+//    %v    github.com/subchen/go-stack/runs/runtime_stack:106
+//    %+v   gstack.RuntimeCallers() (github.com/subchen/go-stack/runs/runtime_stack:106)
 func (f RuntimeFrame) Format(s fmt.State, verb rune) {
 	switch verb {
 	case 'v':
@@ -61,10 +61,10 @@ func (f RuntimeFrame) Format(s fmt.State, verb rune) {
 type RuntimeStack []uintptr
 
 // Format formats the runtime stack according to the fmt.Formatter interface.
-//    %v    at github.com/subchen/gstack/runtime_stack:106
+//    %v    at github.com/subchen/go-stack/runs/runtime_stack:106
 //          at example/main.go:9
 //          at example/main.go:16
-//    %+v   at gstack.RuntimeCallers() (github.com/subchen/gstack/runtime_stack:106)
+//    %+v   at gstack.RuntimeCallers() (github.com/subchen/go-stack/runs/runtime_stack:106)
 //          at main.test() (example/main.go:9)
 //          at main.main() (example/main.go:16)
 func (stack RuntimeStack) Format(s fmt.State, verb rune) {

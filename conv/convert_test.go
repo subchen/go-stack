@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/subchen/gstack/assert"
+	"github.com/subchen/go-stack/assert"
 )
 
 func TestConvertPointerToObject(t *testing.T) {
