@@ -6,7 +6,7 @@ import (
 	"io"
 )
 
-func Encode(data []byte) []byte {
+func Compress(data []byte) []byte {
 	if data == nil || len(data) < 13 {
 		return data
 	}
@@ -17,7 +17,7 @@ func Encode(data []byte) []byte {
 	return in.Bytes()
 }
 
-func Decode(data []byte) []byte {
+func Decompress(data []byte) []byte {
 	if data == nil || len(data) < 13 {
 		return data
 	}
