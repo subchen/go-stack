@@ -34,7 +34,7 @@ func newQuoteChars(chars string) []*quoteChar {
 
 // SplitWithQuotes splits strings by given separator except treating quoted part as a single token
 // quoteChars samples: `',"`, `',",[],(),[]`
-func SplitWithQuotes(input, sep string, quoteChars string) []string {
+func SplitWithQuotes(input, sep string, quoteChars string, keepQuotes bool) []string {
 	if sep == "" {
 		sep = " "
 	}
@@ -55,7 +55,9 @@ func SplitWithQuotes(input, sep string, quoteChars string) []string {
 			ss := strings.TrimSpace(s)
 			if ss[len(ss)-1] == quoteEnd {
 				sss := strings.TrimSpace(strings.Join(buf, sep))
-				sss = sss[1 : len(sss)-1]
+				if !keepQuotes {
+					sss = sss[1 : len(sss)-1]
+				}
 				ret = append(ret, sss)
 				buf = nil
 				continue
@@ -71,7 +73,9 @@ func SplitWithQuotes(input, sep string, quoteChars string) []string {
 		for _, q := range quoteCharList {
 			if q.begin == ss[0] {
 				if q.end == ss[len(ss)-1] {
-					sss := ss[1 : len(ss)-1]
+					if !keepQuotes {
+						sss := ss[1 : len(ss)-1]
+					}
 					ret = append(ret, sss)
 				} else {
 					buf = append(buf, s)
