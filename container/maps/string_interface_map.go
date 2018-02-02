@@ -75,15 +75,17 @@ func (m *StringInterfaceMap) Clear() {
 	m.mutex.Unlock()
 }
 
-// Keys returns all keys
-func (m *StringInterfaceMap) Keys() []string {
-	var keys []string
+// Size returns map size
+func (m *StringInterfaceMap) Size() int {
 	m.mutex.RLock()
-	for k, _ := range m.data {
-		keys = append(keys, k)
-	}
+	size := len(m.data)
 	m.mutex.RUnlock()
-	return keys
+	return size
+}
+
+// IsEmpty returns true if map is empty
+func (m *StringInterfaceMap) IsEmpty() bool {
+	return m.Size() == 0
 }
 
 // Values returns all values

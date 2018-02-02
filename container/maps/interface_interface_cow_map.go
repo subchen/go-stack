@@ -85,6 +85,19 @@ func (m *InterfaceInterfaceCOWMap) Clear() {
 	m.mutex.Unlock()
 }
 
+// Size returns map size
+func (m *StringInterfaceMap) Size() int {
+	m.mutex.RLock()
+	size := len(m.data)
+	m.mutex.RUnlock()
+	return size
+}
+
+// IsEmpty returns true if map is empty
+func (m *StringInterfaceMap) IsEmpty() bool {
+	return m.Size() == 0
+}
+
 // Keys returns all keys
 func (m *InterfaceInterfaceCOWMap) Keys() []interface{} {
 	data := m.data.Load().(map[interface{}]interface{})
