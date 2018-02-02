@@ -4,8 +4,8 @@ package archive
 import (
 	"path/filepath"
 
-	"github.com/subchen/go-stack/archive/tar"
-	"github.com/subchen/go-stack/archive/zip"
+	"github.com/subchen/go-stack/encoding/archive/tar"
+	"github.com/subchen/go-stack/encoding/archive/zip"
 )
 
 // Archive represents a compression archive files from disk can be written to.

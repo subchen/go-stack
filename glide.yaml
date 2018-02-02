@@ -4,8 +4,3 @@ import:
   subpackages:
   - encoding
   - encoding/simplifiedchinese
-- package: github.com/subchen/go-log
-  version: 2.x
-- package: github.com/mattn/go-isatty
-  version: 0.x
-- package: github.com/subchen/gls

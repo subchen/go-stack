@@ -1,4 +1,4 @@
-package gstack
+package ss
 
 import (
 	"bytes"
