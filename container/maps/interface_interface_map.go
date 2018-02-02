@@ -76,7 +76,7 @@ func (m *InterfaceInterfaceMap) Clear() {
 }
 
 // Size returns map size
-func (m *StringInterfaceMap) Size() int {
+func (m *InterfaceInterfaceMap) Size() int {
 	m.mutex.RLock()
 	size := len(m.data)
 	m.mutex.RUnlock()
@@ -84,7 +84,7 @@ func (m *StringInterfaceMap) Size() int {
 }
 
 // IsEmpty returns true if map is empty
-func (m *StringInterfaceMap) IsEmpty() bool {
+func (m *InterfaceInterfaceMap) IsEmpty() bool {
 	return m.Size() == 0
 }
 

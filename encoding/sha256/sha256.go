@@ -11,13 +11,13 @@ import (
 // SumBytes returns sha256sum of data
 func SumBytes(data []byte) string {
 	sum := sha256.Sum256(data)
-	fmt.Printf("%x", sum)
+	return fmt.Sprintf("%x", sum)
 }
 
 // SumString returns sha256sum of data
 func SumString(data string) string {
 	sum := sha256.Sum256([]byte(data))
-	fmt.Printf("%x", sum)
+	return fmt.Sprintf("%x", sum)
 }
 
 // SumFile returns sha256sum of file

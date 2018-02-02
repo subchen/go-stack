@@ -11,13 +11,13 @@ import (
 // SumBytes returns md5sum of data
 func SumBytes(data []byte) string {
 	sum := md5.Sum(data)
-	fmt.Printf("%x", sum)
+	return fmt.Sprintf("%x", sum)
 }
 
 // SumString returns md5sum of data
 func SumString(data string) string {
 	sum := md5.Sum([]byte(data))
-	fmt.Printf("%x", sum)
+	return fmt.Sprintf("%x", sum)
 }
 
 // SumFile returns md5sum of file
