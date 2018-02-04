@@ -13,11 +13,7 @@ type Query struct {
 	data  interface{}
 }
 
-type QueryData struct {
-	*conv.Data
-}
-
-var emptyQueryData := newQueryData(nil)
+var emptyData := &conv.Data(nil)
 
 func New(data interface{}) *Query {
 	return &Query{
@@ -25,17 +21,13 @@ func New(data interface{}) *Query {
 	}
 }
 
-func newQueryData(data interface{}) *QueryData {
-	return &QueryData{&conv.Data{data}}
-}
-
-func (q *Query) Query(expr string) *QueryData {
+func (q *Query) Query(expr string) *conv.Data {
 	if q.data == nil {
-		return emptyQueryData
+		return emptyData
 	}
 
 	if expr == "." {
-		return newQueryData(q.data)
+		return &conv.Data(q.data)
 	}
 
 	paths, err := ss.SplitWithQuotes(expr, ".", `',"`, false)
@@ -51,7 +43,7 @@ func (q *Query) Query(expr string) *QueryData {
 			for _, c := range ctx.([]interface{}) {
 				d, m, err := getAttr(c, path)
 				if err != nil {
-					return emptyQueryData
+					return emptyData
 				}
 				if d != nil {
 					if m {
@@ -65,15 +57,15 @@ func (q *Query) Query(expr string) *QueryData {
 		} else {
 			ctx, multi, err = getAttr(ctx, path)
 			if err != nil {
-				return emptyQueryData
+				return emptyData
 			}
 			if ctx == nil {
-				return emptyQueryData
+				return emptyData
 			}
 		}
 	}
 
-	return newQueryData(ctx)
+	return &conv.Data(ctx)
 }
 
 func getAttr(data interface{}, attr string) (value interface{}, multi bool, err error) {
@@ -165,8 +157,4 @@ func getAttr(data interface{}, attr string) (value interface{}, multi bool, err 
 			panic(fmt.Errorf("%s is not an array, its type is %T", attr, v))
 		}
 	}
-}
-
-func (d *QueryData) AsQuery() *Query {
-	return &Query{d.Data}
 }
