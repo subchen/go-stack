@@ -19,15 +19,15 @@ func toStringInterfaceMap(value interface{}) (map[string]interface{}, error) {
 	}
 
 	switch val := value.(type) {
-		case map[string]interface{}:
-			return val, nil
-		case map[interface{}]interface{}:
-			m := make(map[string]interface{}, len(val))
-			for k, v := range val {
-				m[AsString(k)] = v
-			}
-			return m
-		default:
-			return nil, fmt.Errorf("unsupport convert map[string]interface{} from type(%T)", value)
+	case map[string]interface{}:
+		return val, nil
+	case map[interface{}]interface{}:
+		m := make(map[string]interface{}, len(val))
+		for k, v := range val {
+			m[AsString(k)] = v
+		}
+		return m, nil
+	default:
+		return nil, fmt.Errorf("unsupport convert map[string]interface{} from type(%T)", value)
 	}
 }
