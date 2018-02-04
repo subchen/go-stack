@@ -1,7 +1,8 @@
 package fs
 
 import (
-  "os"
+	"io/ioutil"
+	"os"
 )
 
 
