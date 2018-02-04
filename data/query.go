@@ -31,11 +31,11 @@ func newQueryData(data interface{}) *QueryData {
 
 func (q *Query) Query(expr string) *QueryData {
 	if q.data == nil {
-		return q
+		return emptyQueryData
 	}
 
 	if expr == "." {
-		return q
+		return newQueryData(q.data)
 	}
 
 	paths, err := ss.SplitWithQuotes(expr, ".", `',"`, false)
