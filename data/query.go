@@ -153,14 +153,14 @@ func getAttr(data interface{}, attr string) (value interface{}, multi bool, err 
 		// map
 		if v, ok := ctx.(map[string]interface{}); ok {
 			if val, ok := v[attr]; ok {
-				return val, nil, nil
+				return val, false, nil
 			}
-			return nil, nil, nil
+			return nil, false, nil
 		} else if v, ok := ctx.(map[interface{}]interface{}); ok {
 			if val, ok := v[attr]; ok {
-				return val, nil, nil
+				return val, false, nil
 			}
-			return nil, nil, nil
+			return nil, false, nil
 		} else {
 			panic(fmt.Errorf("%s is not an array, its type is %T", attr, v))
 		}
