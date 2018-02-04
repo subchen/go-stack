@@ -1,4 +1,4 @@
-package data
+package conv
 
 type Data struct {
 	Value interface{}
