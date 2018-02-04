@@ -1,4 +1,4 @@
-package q
+package query
 
 import (
 	"fmt"
@@ -10,15 +10,13 @@ import (
 )
 
 type Query struct {
-	data  interface{}
+	data interface{}
 }
 
-var emptyData := &conv.Data(nil)
+var emptyData = &conv.Data{nil}
 
 func New(data interface{}) *Query {
-	return &Query{
-		data:  data
-	}
+	return &Query{data}
 }
 
 func (q *Query) Query(expr string) *conv.Data {
@@ -27,19 +25,16 @@ func (q *Query) Query(expr string) *conv.Data {
 	}
 
 	if expr == "." {
-		return &conv.Data(q.data)
-	}
-
-	paths, err := ss.SplitWithQuotes(expr, ".", `',"`, false)
-	if err != nil {
-		panic(err)
+		return &conv.Data{q.data}
 	}
 
 	ctx := q.data
 	multi := false
+
+	paths := ss.SplitWithQuotes(expr, ".", `',"`, false)
 	for _, path := range paths {
 		if multi {
-			matchedCtx := make([]interface{})
+			matchedCtx := make([]interface{}, 0)
 			for _, c := range ctx.([]interface{}) {
 				d, m, err := getAttr(c, path)
 				if err != nil {
@@ -55,6 +50,7 @@ func (q *Query) Query(expr string) *conv.Data {
 			}
 			ctx = matchedCtx
 		} else {
+			var err error
 			ctx, multi, err = getAttr(ctx, path)
 			if err != nil {
 				return emptyData
@@ -65,7 +61,7 @@ func (q *Query) Query(expr string) *conv.Data {
 		}
 	}
 
-	return &conv.Data(ctx)
+	return &conv.Data{ctx}
 }
 
 func getAttr(data interface{}, attr string) (value interface{}, multi bool, err error) {
@@ -143,12 +139,12 @@ func getAttr(data interface{}, attr string) (value interface{}, multi bool, err 
 		}
 	} else {
 		// map
-		if v, ok := ctx.(map[string]interface{}); ok {
+		if v, ok := data.(map[string]interface{}); ok {
 			if val, ok := v[attr]; ok {
 				return val, false, nil
 			}
 			return nil, false, nil
-		} else if v, ok := ctx.(map[interface{}]interface{}); ok {
+		} else if v, ok := data.(map[interface{}]interface{}); ok {
 			if val, ok := v[attr]; ok {
 				return val, false, nil
 			}

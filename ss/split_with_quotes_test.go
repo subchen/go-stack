@@ -29,4 +29,3 @@ func TestSplitWithQuotes(t *testing.T) {
 		}
 	}
 }
-

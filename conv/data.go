@@ -21,7 +21,7 @@ func (d *Data) ToString() (string, error) {
 }
 
 func (d *Data) AsBool() bool {
-	return AsString(d.Value)
+	return AsBool(d.Value)
 }
 
 func (d *Data) ToBool() (bool, error) {
@@ -45,7 +45,7 @@ func (d *Data) ToInt8() (int8, error) {
 }
 
 func (d *Data) AsInt16() int16 {
-	return AsInt(d.Value)
+	return AsInt16(d.Value)
 }
 
 func (d *Data) ToInt16() (int16, error) {
@@ -85,14 +85,14 @@ func (d *Data) ToUint8() (uint8, error) {
 }
 
 func (d *Data) AsUint16() uint16 {
-	return AsUint(d.Value)
+	return AsUint16(d.Value)
 }
 
 func (d *Data) ToUint16() (uint16, error) {
 	return ToUint16(d.Value)
 }
 
-func (d *Data) AsUint32() uuint32 {
+func (d *Data) AsUint32() uint32 {
 	return AsUint32(d.Value)
 }
 
