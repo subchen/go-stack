@@ -123,3 +123,115 @@ func (d *Data) AsFloat64() float64 {
 func (d *Data) ToFloat64() (float64, error) {
 	return ToFloat64(d.Value)
 }
+
+func (d *Data) AsStringSlice() []string {
+	return AsStringSlice(d.Value)
+}
+
+func (d *Data) ToStringSlice() ([]string, error) {
+	return ToStringSlice(d.Value)
+}
+
+func (d *Data) AsBoolSlice() []bool {
+	return AsBoolSlice(d.Value)
+}
+
+func (d *Data) ToBoolSlice() ([]bool, error) {
+	return ToBoolSlice(d.Value)
+}
+
+func (d *Data) AsIntSlice() []int {
+	return AsIntSlice(d.Value)
+}
+
+func (d *Data) ToIntSlice() ([]int, error) {
+	return ToIntSlice(d.Value)
+}
+
+func (d *Data) AsInt8Slice() []int8 {
+	return AsInt8Slice(d.Value)
+}
+
+func (d *Data) ToInt8Slice() ([]int8, error) {
+	return ToInt8Slice(d.Value)
+}
+
+func (d *Data) AsInt16Slice() []int16 {
+	return AsInt16Slice(d.Value)
+}
+
+func (d *Data) ToInt16Slice() ([]int16, error) {
+	return ToInt16Slice(d.Value)
+}
+
+func (d *Data) AsInt32Slice() []int32 {
+	return AsInt32Slice(d.Value)
+}
+
+func (d *Data) ToInt32Slice() ([]int32, error) {
+	return ToInt32Slice(d.Value)
+}
+
+func (d *Data) AsInt64Slice() []int64 {
+	return AsInt64Slice(d.Value)
+}
+
+func (d *Data) ToInt64Slice() ([]int64, error) {
+	return ToInt64Slice(d.Value)
+}
+
+func (d *Data) AsUintSlice() []uint {
+	return AsUintSlice(d.Value)
+}
+
+func (d *Data) ToUintSlice() ([]uint, error) {
+	return ToUintSlice(d.Value)
+}
+
+func (d *Data) AsUint8Slice() []uint8 {
+	return AsUint8Slice(d.Value)
+}
+
+func (d *Data) ToUint8Slice() ([]uint8, error) {
+	return ToUint8Slice(d.Value)
+}
+
+func (d *Data) AsUint16Slice() []uint16 {
+	return AsUint16Slice(d.Value)
+}
+
+func (d *Data) ToUint16Slice() ([]uint16, error) {
+	return ToUint16Slice(d.Value)
+}
+
+func (d *Data) AsUint32Slice() []uint32 {
+	return AsUint32Slice(d.Value)
+}
+
+func (d *Data) ToUint32Slice() ([]uint32, error) {
+	return ToUint32Slice(d.Value)
+}
+
+func (d *Data) AsUint64Slice() []uint64 {
+	return AsUint64Slice(d.Value)
+}
+
+func (d *Data) ToUint64Slice() ([]uint64, error) {
+	return ToUint64Slice(d.Value)
+}
+
+func (d *Data) AsFloat32Slice() []float32 {
+	return AsFloat32Slice(d.Value)
+}
+
+func (d *Data) ToFloat32Slice() ([]float32, error) {
+	return ToFloat32Slice(d.Value)
+}
+
+func (d *Data) AsFloat64Slice() []float64 {
+	return AsFloat64Slice(d.Value)
+}
+
+func (d *Data) ToFloat64Slice() ([]float64, error) {
+	return ToFloat64Slice(d.Value)
+}

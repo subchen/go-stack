@@ -14,6 +14,7 @@ package conv
 //go:generate frep --overwrite generate_to_number.gotmpl:to_float64.go -e name=float -e size=64
 
 //go:generate frep --overwrite generate_to_slice.gotmpl:to_string_slice.go  -e name=string
+//go:generate frep --overwrite generate_to_slice.gotmpl:to_bool_slice.go    -e name=bool
 //go:generate frep --overwrite generate_to_slice.gotmpl:to_int_slice.go     -e name=int
 //go:generate frep --overwrite generate_to_slice.gotmpl:to_int8_slice.go    -e name=int8
 //go:generate frep --overwrite generate_to_slice.gotmpl:to_int16_slice.go   -e name=int16
