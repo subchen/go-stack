@@ -4,7 +4,7 @@ import (
 	"strings"
 )
 
-function TrimSpaceStringList(values []string) []string {
+func TrimSpaceStringList(values []string) []string {
 	if values == nil {
 		return nil
 	}
@@ -16,7 +16,7 @@ function TrimSpaceStringList(values []string) []string {
 	return results
 }
 
-function TrimPrefixStringList(values []string, prefix string) []string {
+func TrimPrefixStringList(values []string, prefix string) []string {
 	if values == nil {
 		return nil
 	}
@@ -28,7 +28,7 @@ function TrimPrefixStringList(values []string, prefix string) []string {
 	return results
 }
 
-function TrimSuffixStringList(values []string, suffix string) []string {
+func TrimSuffixStringList(values []string, suffix string) []string {
 	if values == nil {
 		return nil
 	}
