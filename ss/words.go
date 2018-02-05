@@ -58,27 +58,27 @@ func toSpecialNameWithSep(str string, sep string) string {
 
 func SplitLowerWords(str string) []string {
 	var words []string
-	ibegin := 0
+	lastpos := 0
 
 	for i, c := range str {
 		if c == '-' || c == '_' || unicode.IsSpace(c) {
-			s := strings.ToLower(str[ibegin:i])
+			s := strings.ToLower(str[lastpos:i])
 			if len(s) > 0 {
 				words = append(words, s)
 			}
-			ibegin = i+1
+			lastpos = i+1
 		} else if unicode.IsUpper(c) {
-			s := strings.ToLower(str[ibegin:i])
+			s := strings.ToLower(str[lastpos:i])
 			 if len(s) > 0 {
 				words = append(words, s)
 			 }
-			ibegin = i
+			lastpos = i
 		}
 	}
 
 	// remained word
 	if ibegin < len(str) {
-		s := strings.ToLower(str[ibegin:len(str)])
+		s := strings.ToLower(str[lastpos:len(str)])
 		words = append(words, s)
 	}
 
