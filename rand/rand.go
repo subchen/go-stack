@@ -5,9 +5,9 @@ import (
 	"time"
 )
 
-var numbers      = []rune("0123456789")
-var alphas       = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
-var alphanumbers = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+var numerics      = []rune("0123456789")
+var alphas        = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+var alphanumerics = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
 
 func RandomInt(min, max int) int {
 	if min >= max {
@@ -25,7 +25,7 @@ func RandomNumeric(length int) string {
 	rand.Seed(time.Now().UnixNano())
 	b := make([]rune, length)
 	for i := range b {
-		b[i] = numbers[rand.Intn(10)]
+		b[i] = numerics[rand.Intn(10)]
 	}
 	return string(b)
 }
@@ -39,11 +39,11 @@ func RandomAlpha(length int) string {
 	return string(b)
 }
 
-func RandomAlphaNumber(length int) string {
+func RandomAlphaNumeric(length int) string {
 	rand.Seed(time.Now().UnixNano())
 	b := make([]rune, length)
 	for i := range b {
-		b[i] = alphanumber[rand.Intn(62)]
+		b[i] = alphanumerics[rand.Intn(62)]
 	}
 	return string(b)
 }
