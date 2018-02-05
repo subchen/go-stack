@@ -5,10 +5,11 @@ import (
 	"time"
 )
 
-var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
-var digits  = []rune("0123456789")
+var numbers      = []rune("0123456789")
+var alphas       = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+var alphanumbers = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
 
-func RandInt(min, max int) int {
+func RandomInt(min, max int) int {
 	if min >= max {
 		return min
 	}
@@ -20,20 +21,29 @@ func RandInt(min, max int) int {
 	return n
 }
 
-func RandString(length int) string {
+func RandomNumeric(length int) string {
 	rand.Seed(time.Now().UnixNano())
 	b := make([]rune, length)
 	for i := range b {
-		b[i] = letters[rand.Intn(52)]
+		b[i] = numbers[rand.Intn(10)]
 	}
 	return string(b)
 }
 
-func RandDigits(n int) string {
+func RandomAlpha(length int) string {
 	rand.Seed(time.Now().UnixNano())
-	b := make([]rune, n)
+	b := make([]rune, length)
 	for i := range b {
-		b[i] = digits[rand.Intn(10)]
+		b[i] = alphas[rand.Intn(52)]
+	}
+	return string(b)
+}
+
+func RandomAlphaNumber(length int) string {
+	rand.Seed(time.Now().UnixNano())
+	b := make([]rune, length)
+	for i := range b {
+		b[i] = alphanumber[rand.Intn(62)]
 	}
 	return string(b)
 }
