@@ -4,21 +4,26 @@ import(
 	"strings"
 )
 
-func Unquote(s string) string {
-	if len(s) < 2 {
+func UnquoteString(s string) string {
+	l := len(s)
+
+	if l < 2 {
 		return s
 	}
 
-	c1 := s[0]
-	c2 := s[len(s)-1]
-
-	if c1 == '"' && c2 == '"' {
-		return s[1 : len(s)-1]
-	} else if c1 == '\"' && c2 == '\"' {
-		return s[1 : len(s)-1]
-	} else if c1 == '`' && c2 == '`' {
-		return s[1 : len(s)-1]
+	switch s[0] {
+	case '"':
+		if ss, err := strconv.Unquote(s); err == nil {
+			return ss
+		}
+	case '\'':
+		return strings.Replace(s[1:l-1], `\'`, `'`, -1)
+	case '`':
+		if s[l-1] == '`' {
+			s[1 : l-1]
+		}
 	}
 
+	// raw strings
 	return s
 }
