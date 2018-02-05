@@ -20,6 +20,12 @@ func Uncapitalize(s string) string {
 	return strings.ToLower(s[0]) + s[1:]
 }
 
+// ToCamelcase can convert all words in a string to camel format.
+//
+// Some samples.
+//     "Hello world"  => "helloWorld"
+//     "Hello-world"  => "helloWorld"
+//     "Hello_world"  => "helloWorld"
 func ToCamelcase(str string) string {
 	words := SplitLowerWords(strings.ToLower(str))
 	for i, w := range words {
@@ -32,14 +38,35 @@ func ToCamelcase(str string) string {
 	return strings.Join(words, "")
 }
 
-func ToDashizeName(str string) string {
+// ToDashizeName can convert all words in a string to dashizer format.
+//
+// Some samples.
+//     "HelloWorld"   => "hello-world"
+//     "Hello World"  => "hello-world"
+//     "Hello-World"  => "hello-world"
+//     "Hello_World"  => "hello-world"
+func ToDashizerName(str string) string {
 	return toSpecialNameWithSep(str, "-")
 }
 
+// ToUnderlineName can convert all words in a string to underscore format.
+//
+// Some samples.
+//     "HelloWorld"   => "hello_world"
+//     "Hello World"  => "hello_world"
+//     "Hello-World"  => "hello_world"
+//     "Hello_World"  => "hello_world"
 func ToUnderlineName(str string) string {
 	return toSpecialNameWithSep(str, "_")
 }
 
+// ToPropertyName can convert all words in a string to point format.
+//
+// Some samples.
+//     "HelloWorld"   => "hello.world"
+//     "Hello World"  => "hello.world"
+//     "Hello-World"  => "hello.world"
+//     "Hello_World"  => "hello.world"
 func ToPropertyName(str string) string {
 	return toSpecialNameWithSep(str, ".")
 }
