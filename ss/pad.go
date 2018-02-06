@@ -15,14 +15,14 @@ import (
 //     PadLeft("hello", 10, " ")   => "hello     "
 //     PadLeft("hello", 10, "123") => "hello12312"
 func PadLeft(str string, length int, pad string) string {
-	l := Len(str)
+	l := len(str)
 
 	if l >= length || pad == "" {
 		return str
 	}
 
 	remains := length - l
-	padLen := Len(pad)
+	padLen := len(pad)
 
 	output := &bytes.Buffer{}
 	output.Grow(len(str) + (remains/padLen+1)*len(pad))
@@ -41,14 +41,14 @@ func PadLeft(str string, length int, pad string) string {
 //     PadRight("hello", 10, " ")   => "     hello"
 //     PadRight("hello", 10, "123") => "12312hello"
 func PadRight(str string, length int, pad string) string {
-	l := Len(str)
+	l := len(str)
 
 	if l >= length || pad == "" {
 		return str
 	}
 
 	remains := length - l
-	padLen := Len(pad)
+	padLen := len(pad)
 
 	output := &bytes.Buffer{}
 	output.Grow(len(str) + (remains/padLen+1)*len(pad))
@@ -67,14 +67,14 @@ func PadRight(str string, length int, pad string) string {
 //     PadCenter("hello", 10, " ")   => "  hello   "
 //     PadCenter("hello", 10, "123") => "12hello123"
 func PadCenter(str string, length int, pad string) string {
-	l := Len(str)
+	l := len(str)
 
 	if l >= length || pad == "" {
 		return str
 	}
 
 	remains := length - l
-	padLen := Len(pad)
+	padLen := len(pad)
 
 	output := &bytes.Buffer{}
 	output.Grow(len(str) + (remains/padLen+1)*len(pad))

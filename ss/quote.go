@@ -1,8 +1,8 @@
 package ss
 
-import(
-	"strings"
+import (
 	"strconv"
+	"strings"
 )
 
 func UnquoteString(s string) string {
@@ -21,7 +21,7 @@ func UnquoteString(s string) string {
 		return strings.Replace(s[1:l-1], `\'`, `'`, -1)
 	case '`':
 		if s[l-1] == '`' {
-			s[1 : l-1]
+			s = s[1 : l-1]
 		}
 	}
 

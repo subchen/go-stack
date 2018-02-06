@@ -6,7 +6,6 @@ import (
 	"time"
 )
 
-
 func fileSize(file string) int64 {
 	info, err := os.Stat(file)
 	if err != nil {

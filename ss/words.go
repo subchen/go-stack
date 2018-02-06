@@ -1,7 +1,6 @@
 package ss
 
 import (
-	"regexp"
 	"strings"
 	"unicode"
 )
@@ -10,14 +9,14 @@ func Capitalize(s string) string {
 	if len(s) == 0 {
 		return ""
 	}
-	return strings.ToUpper(s[0]) + s[1:]
+	return strings.ToUpper(s[:0]) + s[1:]
 }
 
 func Uncapitalize(s string) string {
 	if len(s) == 0 {
 		return ""
 	}
-	return strings.ToLower(s[0]) + s[1:]
+	return strings.ToLower(s[:0]) + s[1:]
 }
 
 // ToCamelcase can convert all words in a string to camel format.
@@ -29,8 +28,8 @@ func Uncapitalize(s string) string {
 func ToCamelcase(str string) string {
 	words := SplitLowerWords(strings.ToLower(str))
 	for i, w := range words {
-		if i>0 {
-			words[i] = ToCapitalized(w)
+		if i > 0 {
+			words[i] = Capitalize(w)
 		} else {
 			words[i] = w
 		}
@@ -46,7 +45,8 @@ func ToCamelcase(str string) string {
 //     "Hello-World"  => "hello-world"
 //     "Hello_World"  => "hello-world"
 func ToDashizerName(str string) string {
-	return toSpecialNameWithSep(str, "-")
+	words := SplitLowerWords(strings.ToLower(str))
+	return strings.Join(words, "-")
 }
 
 // ToUnderlineName can convert all words in a string to underscore format.
@@ -57,7 +57,8 @@ func ToDashizerName(str string) string {
 //     "Hello-World"  => "hello_world"
 //     "Hello_World"  => "hello_world"
 func ToUnderlineName(str string) string {
-	return toSpecialNameWithSep(str, "_")
+	words := SplitLowerWords(strings.ToLower(str))
+	return strings.Join(words, "_")
 }
 
 // ToPropertyName can convert all words in a string to point format.
@@ -68,19 +69,8 @@ func ToUnderlineName(str string) string {
 //     "Hello-World"  => "hello.world"
 //     "Hello_World"  => "hello.world"
 func ToPropertyName(str string) string {
-	return toSpecialNameWithSep(str, ".")
-}
-
-func toSpecialNameWithSep(str string, sep string) string {
 	words := SplitLowerWords(strings.ToLower(str))
-	for i, w := range words {
-		if i>0 || title {
-			words[i] = ToCapitalized(w)
-		} else {
-			words[i] = w
-		}
-	}
-	return strings.Join(words, sep)
+	return strings.Join(words, ".")
 }
 
 func SplitLowerWords(str string) []string {
@@ -93,18 +83,18 @@ func SplitLowerWords(str string) []string {
 			if len(s) > 0 {
 				words = append(words, s)
 			}
-			lastpos = i+1
+			lastpos = i + 1
 		} else if unicode.IsUpper(c) {
 			s := strings.ToLower(str[lastpos:i])
-			 if len(s) > 0 {
+			if len(s) > 0 {
 				words = append(words, s)
-			 }
+			}
 			lastpos = i
 		}
 	}
 
 	// remained word
-	if ibegin < len(str) {
+	if lastpos < len(str) {
 		s := strings.ToLower(str[lastpos:len(str)])
 		words = append(words, s)
 	}
