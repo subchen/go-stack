@@ -6,7 +6,7 @@ import (
 
 func Exists(filename string) bool {
 	_, err := os.Stat(filename)
-	return err == nil
+	return err == null || !os.IsNotExist(err)
 }
 
 func IsDir(filename string) bool {
