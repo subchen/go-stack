@@ -9,14 +9,18 @@ func Capitalize(s string) string {
 	if len(s) == 0 {
 		return ""
 	}
-	return strings.ToUpper(s[:0]) + s[1:]
+	rs := []rune(s)
+	rs[0] = unicode.ToUpper(rs[0])
+	return string(rs)
 }
 
 func Uncapitalize(s string) string {
 	if len(s) == 0 {
 		return ""
 	}
-	return strings.ToLower(s[:0]) + s[1:]
+	rs := []rune(s)
+	rs[0] = unicode.ToLower(rs[0])
+	return string(rs)
 }
 
 // ToCamelcase can convert all words in a string to camel format.
