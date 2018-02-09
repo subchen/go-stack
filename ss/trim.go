@@ -61,3 +61,16 @@ func DeleteWhitespaces(s string) string {
 	}
 	return buf.String()	
 }
+
+// IsBlank returns whether a string is whitespace or empty.
+func IsBlank(s string) bool {
+	if len(s) == 0 {
+		return true
+	}
+	for _, r := range s {
+		if unicode.IsSpace(r) == false {
+			return false
+		}
+	}
+	return true
+}
