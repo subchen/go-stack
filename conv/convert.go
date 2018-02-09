@@ -20,6 +20,12 @@ var (
 	TYPE_UINT64  = reflect.TypeOf(uint64(0))
 	TYPE_FLOAT32 = reflect.TypeOf(float32(0))
 	TYPE_FLOAT64 = reflect.TypeOf(float64(0))
+
+	TYPE_STRING_SLICE    = reflect.TypeOf([]string(nil))
+	TYPE_INTERFACE_SLICE = reflect.TypeOf([]interface{}(nil))
+
+	TYPE_STRING_INTERFACE_MAP    = reflect.TypeOf(map[string]interface{}(nil))
+	TYPE_INTERFACE_INTERFACE_MAP = reflect.TypeOf(map[interface{}]interface{}(nil))
 )
 
 func ConvertAs(value interface{}, rtype reflect.Type) interface{} {
@@ -88,9 +94,9 @@ func convertTo(rvalue reflect.Value, rtype reflect.Type) (interface{}, error) {
 	case reflect.Ptr:
 		return toPointer(rvalue, rtype)
 	case reflect.Array:
-	//
+		//
 	case reflect.Slice:
-	//
+		//
 	case reflect.Map:
 		//
 	}
