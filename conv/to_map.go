@@ -4,37 +4,37 @@ import (
 	"reflect"
 )
 
-func convertToMap(smValue reflect.Value, dmType reflect.Type) (interface{}, error) {
-	if smValue.Type() == dmType {
+func convertToMap(rvalue reflect.Value, rtype reflect.Type) (interface{}, error) {
+	if rvalue.Type() == rtype {
 		// same type, nothing to convert.
-		return smValue.Interface(), nil
+		return rvalue.Interface(), nil
 	}
 
 	// src map value
-	if smValue.Kind() != reflect.Map {
-		return nil, fmt.Errorf("src value type is not a map, its type is %s", smValue.Kind().String())
+	if rvalue.Kind() != reflect.Map {
+		return nil, fmt.Errorf("src value type is not a map, its type is %s", rvalue.Kind().String())
 	}
 	// dest map type
-	if dmType.Kind() != reflect.Map {
-		return nil, fmt.Errorf("dest type is not a map, its type is %T", dmType.Kind().String())
+	if rtype.Kind() != reflect.Map {
+		return nil, fmt.Errorf("dest type is not a map, its type is %s", rtype.Kind().String())
 	}
 
-	dmValue := reflect.MakeMapWithSize(dmType, smValue.Len())
+	m := reflect.MakeMapWithSize(rtype, rvalue.Len())
 
-	for _, skValue := range smValue.MapKeys() {
-		svValue := smValue.MapIndex(skValue)
-		
-		dkValue, err := convertTo(skValue, dmType.Key()) // key
+	for _, key := range rvalue.MapKeys() {
+		value := rvalue.MapIndex(key)
+
+		newkey, err := convertTo(key, rtype.Key())
 		if err != nil {
 			return nil, err
 		}
-		dvValue, err := convertTo(svValue, dmType.Elem()) // value
+		newvalue, err := convertTo(value, rtype.Elem())
 		if err != nil {
 			return nil, err
 		}
 
-		dmValue.SetMapIndex(dkValue, dvValue)
+		m.SetMapIndex(reflect.ValueOf(newkey), reflect.ValueOf(newvalue))
 	}
 
-	return dmValue.Interface(), nil
+	return m.Interface(), nil
 }
