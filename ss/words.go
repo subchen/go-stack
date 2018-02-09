@@ -77,12 +77,13 @@ func ToPropertyName(str string) string {
 	return strings.Join(words, ".")
 }
 
+// SplitLowerWords splits words with "-", "_", ".", whitespaces
 func SplitLowerWords(str string) []string {
 	var words []string
 	lastpos := 0
 
 	for i, c := range str {
-		if c == '-' || c == '_' || unicode.IsSpace(c) {
+		if c == '-' || c == '_' || c == '.' || unicode.IsSpace(c) {
 			s := strings.ToLower(str[lastpos:i])
 			if len(s) > 0 {
 				words = append(words, s)
