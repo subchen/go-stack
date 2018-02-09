@@ -40,12 +40,7 @@ func TrimSuffixStringList(values []string, suffix string) []string {
 	return results
 }
 
-var (
-	whitespaceRegex = regexp.MustCompile("\\s+")
-)
-
-// DeleteWhitespace returns a version of the passed-in string with all
-// whitespaces (as by unicode.IsSpace) removed.
+// DeleteWhitespaces deletes all whitespaces (unicode.IsSpace) in string.
 func DeleteWhitespaces(s string) string {
 	if len(s) == 0 {
 		return s
