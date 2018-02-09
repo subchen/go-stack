@@ -5,6 +5,11 @@ import (
 )
 
 func convertToMap(smValue reflect.Value, dmType reflect.Type) (interface{}, error) {
+	if smValue.Type() == dmType {
+		// same type, nothing to convert.
+		return smValue.Interface(), nil
+	}
+
 	// src map value
 	if smValue.Kind() != reflect.Map {
 		return nil, fmt.Errorf("src value type is not a map, its type is %s", smValue.Kind().String())
