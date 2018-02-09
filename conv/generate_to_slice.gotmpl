@@ -19,6 +19,11 @@ func to{{.name|title}}Slice(values interface{}) ([]{{.name}}, error) {
 		return nil, nil
 	}
 
+	// same type, quickly return
+	if v, ok := values.([]{{.name}}); ok {
+		return v, nil
+	}
+
 	rvalue := reflect.ValueOf(values)
 	if rvalue.Kind() != reflect.Array && rvalue.Kind() != reflect.Slice {
 		return nil, fmt.Errorf("values is not an array or slice, its type is %T", values)
