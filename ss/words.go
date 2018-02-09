@@ -5,6 +5,7 @@ import (
 	"unicode"
 )
 
+// Capitalize changes first rune to uppercase
 func Capitalize(s string) string {
 	if len(s) == 0 {
 		return ""
@@ -14,6 +15,7 @@ func Capitalize(s string) string {
 	return string(rs)
 }
 
+// Capitalize changes first rune to lowercase
 func Uncapitalize(s string) string {
 	if len(s) == 0 {
 		return ""
@@ -100,7 +102,7 @@ func SplitLowerWords(str string) []string {
 
 	// remained word
 	if lastpos < len(str) {
-		s := strings.ToLower(str[lastpos:len(str)])
+		s := strings.ToLower(str[lastpos:])
 		words = append(words, s)
 	}
 
