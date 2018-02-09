@@ -39,3 +39,30 @@ func TrimSuffixStringList(values []string, suffix string) []string {
 	}
 	return results
 }
+
+var (
+	whitespaceRegex = regexp.MustCompile("\\s+")
+)
+
+// DeleteWhitespace returns a version of the passed-in string with all
+// whitespaces (as by unicode.IsSpace) removed.
+func DeleteWhitespaces(s string) string {
+	if len(s) == 0 {
+		return s
+	}
+
+	var changes bool
+	var buf bytes.Buffer
+	for _, r := range s {
+		if unicode.IsSpace(r) {
+			changes = true
+		} else {
+			buf.WriteRune(r)
+		}
+	}
+
+	if !changes {
+		return s
+	}
+	return buf.String()	
+}
