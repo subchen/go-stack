@@ -251,3 +251,11 @@ func (v *Value) AsStringInterfaceMap() map[string]interface{} {
 func (v *Value) ToStringInterfaceMap() (map[string]interface{}, error) {
 	return ToStringInterfaceMap(v.Data)
 }
+
+func (v *Value) AsInterfaceInterfaceMap() map[interface{}]interface{} {
+	return AsInterfaceInterfaceMap(v.Data)
+}
+
+func (v *Value) ToInterfaceInterfaceMap() (map[interface{}]interface{}, error) {
+	return ToInterfaceInterfaceMap(v.Data)
+}
