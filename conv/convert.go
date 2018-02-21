@@ -99,24 +99,10 @@ func convertTo(rvalue reflect.Value, rtype reflect.Type) (interface{}, error) {
 	case reflect.Slice:
 		//
 	case reflect.Map:
-		return toMap(value, rtype)
+		return convertToMap(rvalue, rtype)
 	}
 
 	return tryImplicitConvert(rvalue, rtype)
-}
-
-func toMap(value intereface{}, rtype reflect.Type) (interface{}, error) {
-	keyKind := rtype.Key().Kind()
-	valKind := rtype.Elem().Kind()
-	if keyKind == reflect.String && valKind == reflect.String {
-		return toStringStringMap(value)
-	if keyKind == reflect.String && valKind == reflect.Interface {
-		return toStringInterfaceMap(value)
-	if keyKind == reflect.Interface && valKind == reflect.Interface {
-		return toInterfaceInterfaceMap(value)
-	} else {
-		return nil, fmt.Errorf("unsupport convert %T from type(%v)", value, rtype)
-	}
 }
 
 // * -> pointer
