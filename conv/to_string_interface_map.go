@@ -21,6 +21,12 @@ func toStringInterfaceMap(value interface{}) (map[string]interface{}, error) {
 	switch val := value.(type) {
 	case map[string]interface{}:
 		return val, nil
+	case map[string]string:
+		m := make(map[string]interface{}, len(val))
+		for k, v := range val {
+			m[k] = v
+		}
+		return m, nil
 	case map[interface{}]interface{}:
 		m := make(map[string]interface{}, len(val))
 		for k, v := range val {
