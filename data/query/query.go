@@ -13,19 +13,19 @@ type Query struct {
 	data interface{}
 }
 
-var emptyData = &conv.Data{nil}
+var emptyValue = &conv.Value{nil}
 
 func New(data interface{}) *Query {
 	return &Query{data}
 }
 
-func (q *Query) Query(expr string) *conv.Data {
+func (q *Query) Query(expr string) *conv.Value {
 	if q.data == nil {
-		return emptyData
+		return emptyValue
 	}
 
 	if expr == "." {
-		return &conv.Data{q.data}
+		return &conv.Value{q.data}
 	}
 
 	ctx := q.data
@@ -38,7 +38,7 @@ func (q *Query) Query(expr string) *conv.Data {
 			for _, c := range ctx.([]interface{}) {
 				d, m, err := getAttr(c, path)
 				if err != nil {
-					return emptyData
+					return emptyValue
 				}
 				if d != nil {
 					if m {
@@ -53,15 +53,15 @@ func (q *Query) Query(expr string) *conv.Data {
 			var err error
 			ctx, multi, err = getAttr(ctx, path)
 			if err != nil {
-				return emptyData
+				return emptyValue
 			}
 			if ctx == nil {
-				return emptyData
+				return emptyValue
 			}
 		}
 	}
 
-	return &conv.Data{ctx}
+	return &conv.Value{ctx}
 }
 
 func getAttr(data interface{}, attr string) (value interface{}, multi bool, err error) {
