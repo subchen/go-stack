@@ -38,6 +38,6 @@ func FileWriteBytes(filename string, data []byte) error {
 	return ioutil.WriteFile(filename, data, 0644)
 }
 
-func FileWriteString(filename string, data string) (string, error) {
+func FileWriteString(filename string, data string) error {
 	return ioutil.WriteFile(filename, []byte(data), 0644)
 }
