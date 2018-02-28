@@ -6,34 +6,30 @@ import (
 	"time"
 )
 
-func fileSize(file string) int64 {
-	info, err := os.Stat(file)
+func FileGetSize(filename string) int64 {
+	info, err := os.Stat(filename)
 	if err != nil {
 		return -1
 	}
 	return info.Size()
 }
 
-func fileLastModified(file string) time.Time {
-	info, err := os.Stat(file)
+func FileGetLastModified(filename string) time.Time {
+	info, err := os.Stat(filename)
 	if err != nil {
 		return time.Unix(0, 0)
 	}
 	return info.ModTime()
 }
 
-func fileGetBytes(file string) []byte {
-	data, err := ioutil.ReadFile(file)
-	if err != nil {
-		return nil
-	}
-	return data
+func FileGetBytes(filename string) ([]byte, error) {
+	return ioutil.ReadFile(filename)
 }
 
-func fileGetString(file string) string {
-	data, err := ioutil.ReadFile(file)
+func FileGetString(filename string) (string, error) {
+	data, err := ioutil.ReadFile(filename)
 	if err != nil {
-		return ""
+		return "", err
 	}
-	return string(data)
+	return string(data), nil
 }
