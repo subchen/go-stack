@@ -1,11 +1,11 @@
 package conv
 
-//go:generate frep --overwrite generate_to_number.gotmpl:to_int.go     -e name=int   -e size=
+//go:generate frep --overwrite generate_to_number.gotmpl:to_int.go     -e name=int   -e size=""
 //go:generate frep --overwrite generate_to_number.gotmpl:to_int8.go    -e name=int   -e size=8
 //go:generate frep --overwrite generate_to_number.gotmpl:to_int16.go   -e name=int   -e size=16
 //go:generate frep --overwrite generate_to_number.gotmpl:to_int32.go   -e name=int   -e size=32
 //go:generate frep --overwrite generate_to_number.gotmpl:to_int64.go   -e name=int   -e size=64
-//go:generate frep --overwrite generate_to_number.gotmpl:to_uint.go    -e name=uint  -e size=
+//go:generate frep --overwrite generate_to_number.gotmpl:to_uint.go    -e name=uint  -e size=""
 //go:generate frep --overwrite generate_to_number.gotmpl:to_uint8.go   -e name=uint  -e size=8
 //go:generate frep --overwrite generate_to_number.gotmpl:to_uint16.go  -e name=uint  -e size=16
 //go:generate frep --overwrite generate_to_number.gotmpl:to_uint32.go  -e name=uint  -e size=32
