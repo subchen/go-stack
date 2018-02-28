@@ -15,7 +15,7 @@ type Query struct {
 
 var emptyValue = &conv.Value{nil}
 
-func New(data interface{}) *Query {
+func NewQuery(data interface{}) *Query {
 	return &Query{data}
 }
 
