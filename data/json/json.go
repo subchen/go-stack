@@ -2,6 +2,7 @@ package json
 
 import (
 	"encoding/json"
+	"io/ioutil"
 
 	"github.com/subchen/go-stack/data"
 	"github.com/subchen/go-stack/fs"
@@ -20,7 +21,7 @@ func NewStringQuery(data string) (*data.Query, error) {
 }
 
 func NewFileQuery(filename string) (*data.Query, error) {
-	data, err := fs.FileGetBytes(filename)
+	data, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return nil, err
 	}
