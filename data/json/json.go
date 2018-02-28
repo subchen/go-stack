@@ -5,7 +5,6 @@ import (
 	"io/ioutil"
 
 	"github.com/subchen/go-stack/data"
-	"github.com/subchen/go-stack/fs"
 )
 
 func NewQuery(data []byte) (*data.Query, error) {
