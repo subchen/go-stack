@@ -79,7 +79,7 @@ func glob(rootPath, pattern string, includeHidden bool, excludes []string) ([]st
 		rootPath = path.Join(rootPath, submatches[1])
 		pattern = submatches[2]
 	}
-	if !PathExists(rootPath) {
+	if _, err := os.Stat(rootPath); err != nil {
 		return nil, nil
 	}
 
@@ -100,9 +100,7 @@ func glob(rootPath, pattern string, includeHidden bool, excludes []string) ([]st
 			return err
 		}
 		if info.IsDir() {
-			if name != rootPath && IsGoPackage(name) {
-				return filepath.SkipDir // Can't glob past a package boundary
-			} else if !includeHidden && strings.HasPrefix(info.Name(), ".") {
+			if !includeHidden && strings.HasPrefix(info.Name(), ".") {
 				return filepath.SkipDir // Don't descend into hidden directories
 			} else if shouldExcludeMatch(name, excludes) {
 				return filepath.SkipDir
@@ -113,32 +111,4 @@ func glob(rootPath, pattern string, includeHidden bool, excludes []string) ([]st
 		return nil
 	})
 	return matches, err
-}
-
-// Memoize this to cut down on filesystem operations
-var isGoPackageMemo = map[string]bool{}
-var isGoPackageMutex sync.RWMutex
-
-// IsGoPackage returns true if the given directory name is a package (i.e. contains a build file)
-func IsGoPackage(name string) bool {
-	isGoPackageMutex.RLock()
-	ret, present := isGoPackageMemo[name]
-	isGoPackageMutex.RUnlock()
-	if present {
-		return ret
-	}
-	ret = isGoPackageInternal(name)
-	isGoPackageMutex.Lock()
-	isGoPackageMemo[name] = ret
-	isGoPackageMutex.Unlock()
-	return ret
-}
-
-func isGoPackageInternal(name string) bool {
-	for _, buildFileName := range State.Config.Parse.BuildFileName {
-		if FileExists(path.Join(name, buildFileName)) {
-			return true
-		}
-	}
-	return false
 }
