@@ -7,26 +7,26 @@ import (
 	"github.com/subchen/go-stack/data"
 )
 
-func NewQuery(data []byte) (*data.Query, error) {
+func NewQuery(v []byte) (*data.Query, error) {
 	var result interface{}
-	if err := yaml.Unmarshal(data, &result); err != nil {
+	if err := yaml.Unmarshal(v, &result); err != nil {
 		return nil, err
 	}
-	return data.NewQuery(result)
+	return data.NewQuery(result), nil
 }
 
-func NewStringQuery(data string) (*data.Query, error) {
-	return NewQuery([]byte(data))
+func NewStringQuery(v string) (*data.Query, error) {
+	return NewQuery([]byte(v))
 }
 
 func NewFileQuery(filename string) (*data.Query, error) {
-	data, err := ioutil.ReadFile(filename)
+	v, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return nil, err
 	}
-	return NewQuery(data)
+	return NewQuery(v)
 }
 
-func Marshal(data interface{}) ([]byte, error) {
-	return yaml.Marshal(data)
+func Marshal(v interface{}) ([]byte, error) {
+	return yaml.Marshal(v)
 }

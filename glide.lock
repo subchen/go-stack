@@ -1,11 +1,14 @@
 hash: ab8e6898075cad1c43bda097865a231ab3dfdc36f462ab6f2057c4c7023930f4
-updated: 2018-02-02T05:07:49.520568687Z
+updated: 2018-03-05T06:53:33.275661316Z
 imports:
+- name: github.com/go-yaml/yaml
+  version: 7f97868eec74b32b0982dd158a51a446d1da7eb5
 - name: golang.org/x/text
-  version: 470f45bf29f4147d6fbd7dfd0a02a848e49f5bf4
+  version: b7ef84aaf62aa3e70962625c80a571ae7c17cb40
   subpackages:
   - encoding
   - encoding/internal
   - encoding/internal/identifier
   - encoding/simplifiedchinese
   - transform
+testImports: []

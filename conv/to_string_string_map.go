@@ -24,7 +24,7 @@ func toStringStringMap(value interface{}) (map[string]string, error) {
 	case map[string]interface{}:
 		m := make(map[string]string, len(val))
 		for k, v := range val {
-			m[AsString(k)] = v
+			m[k] = AsString(v)
 		}
 		return m, nil
 	case map[interface{}]interface{}:
