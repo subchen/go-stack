@@ -8,9 +8,8 @@ import (
 	"reflect"
 )
 
-// Stringify attempts to create a reasonable string representation of types in
-// the GitHub library. It does things like resolve pointers to their values
-// and omits struct fields with nil values.
+// Stringify attempts to create a reasonable string representation of types.
+// It does things like resolve pointers to their values and omits struct fields with nil values.
 func Stringify(message interface{}) string {
 	var buf bytes.Buffer
 	v := reflect.ValueOf(message)
@@ -19,7 +18,6 @@ func Stringify(message interface{}) string {
 }
 
 // stringifyValue was heavily inspired by the goprotobuf library.
-
 func stringifyValue(w io.Writer, val reflect.Value) {
 	if val.Kind() == reflect.Ptr && val.IsNil() {
 		w.Write([]byte("<nil>"))
