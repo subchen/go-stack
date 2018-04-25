@@ -2,13 +2,18 @@ package fs
 
 import (
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 )
 
 // GetProcessBinDir returns process binary directory
 func GetProcessBinDir() string {
-	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	app := os.Args[0]
+	if filepath.Base(app) == app {
+		app, _ = exec.LookPath(app)
+	}
+	dir, err := filepath.Abs(filepath.Dir(app))
 	if err != nil {
 		panic(err)
 	}
