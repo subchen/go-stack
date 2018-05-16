@@ -13,8 +13,8 @@ var dirs = []string{
 	getProcessdir(),
 }
 
-// AddDir add dir to lookup
-func AddDir(dirname string) {
+// AddSearchDir add dir to lookup
+func AddSearchDir(dirname string) {
 	dir, err := filepath.Abs(dirname)
 	if err != nil {
 		panic(err)
