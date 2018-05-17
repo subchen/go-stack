@@ -25,11 +25,11 @@ func Marshal(v interface{}) ([]byte, error) {
 }
 
 // MarshalIndent is like Marshal but applies Indent to format the output
-func MarshalIndent(v interface{}, prefix, indent string) ([]byte, error) {
+func MarshalIndent(v interface{}) ([]byte, error) {
 	var buf bytes.Buffer
 	encoder := json.NewEncoder(&buf)
 	encoder.SetEscapeHTML(false)
-	encoder.SetIndent(prefix, indent)
+	encoder.SetIndent("", "  ")
 	err := encoder.Encode(v)
 	if err != nil {
 		return nil, err
