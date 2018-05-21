@@ -114,7 +114,6 @@ func (s *Scanner) ScanString() (string, bool) {
 		re = reStringPlain
 	}
 
-	fmt.Println("re:", re)
 	find, ok := s.Scan(re)
 	if !ok {
 		return "", false
