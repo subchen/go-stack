@@ -1,6 +1,5 @@
 package scanner
 
-
 import (
 	"fmt"
 	"regexp"
@@ -9,6 +8,7 @@ import (
 	"unicode/utf8"
 )
 
+// golang regexp doc: https://github.com/google/re2/wiki/Syntax
 const (
 	sWhitespaces = `[[:space:]]+`
 
@@ -90,7 +90,7 @@ func (s *Scanner) ScanIdentifier() (string, bool) {
 	return s.Scan(reIdentifier)
 }
 
-// ScanIdentifier returns an string, string can be quoted by '"', '\'', '`'
+// ScanIdentifier returns a string, the string can be quoted by '"', '\'', '`'
 func (s *Scanner) ScanString() (string, bool) {
 	if s.Eof() {
 		return "", false
@@ -144,7 +144,33 @@ func (s *Scanner) ScanChar(ch rune) bool {
 	return true
 }
 
-// ScanUntil returns text until hit delim
+// ScanInt64 returns an int64
+func (s *Scanner) ScanInt64() (int64, bool) {
+	find, ok := s.Scan(reInt)
+	if !ok {
+		return 0, false
+	}
+	n, err := strconv.ParseInt(find, 10, 64)
+	if err != nil {
+		return 0, false
+	}
+	return n, true
+}
+
+// ScanFloat64 returns an float64
+func (s *Scanner) ScanFloat64() (float64, bool) {
+	find, ok := s.Scan(reFloat)
+	if !ok {
+		return 0, false
+	}
+	n, err := strconv.ParseFloat(find, 64)
+	if err != nil {
+		return 0, false
+	}
+	return n, true
+}
+
+// ScanUntil returns text before delim
 func (s *Scanner) ScanUntil(delim rune) (string, bool) {
 	if s.Eof() {
 		return "", false
@@ -166,7 +192,7 @@ func (s *Scanner) ScanUntil(delim rune) (string, bool) {
 	return "", false
 }
 
-// Peek returns a rune
+// Peek returns a rune, result may be EOF, utf8.RuneError
 func (s *Scanner) Peek() rune {
 	if s.Eof() {
 		return EOF
@@ -180,7 +206,7 @@ func (s *Scanner) Peek() rune {
 	return find
 }
 
-// PeekN returns some runes
+// PeekN returns some runes, if no enough runes, return all
 func (s *Scanner) PeekN(n int) []rune {
 	if s.Eof() {
 		return nil
@@ -225,4 +251,3 @@ func (s *Scanner) Errorf(format string, args ...interface{}) error {
 	}
 	return fmt.Errorf("failed at %v: %v", s.pos, msg)
 }
-
