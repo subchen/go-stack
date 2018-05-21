@@ -9,7 +9,7 @@ import (
 
 // KVSplit splits "key:value ..." delimited by whitespaces.
 // The value can be quoted by '"", '\'', '`' if value has spaces
-// Example input: `exe:/bin/ls args="-l -a --color"`
+// Example input: `exe:/bin/ls args:"-l -a --color"`
 func KVSplit(input string) (map[string]string, error) {
 	m := make(map[string]string)
 
