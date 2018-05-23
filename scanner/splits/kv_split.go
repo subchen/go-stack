@@ -1,7 +1,6 @@
 package splits
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/subchen/go-stack/scanner"
@@ -14,14 +13,26 @@ func KVSplit(input string) (map[string]string, error) {
 	m := make(map[string]string)
 
 	s := scanner.New(strings.TrimSpace(input))
+	lastDelim := '\u0000'
 	for !s.Eof() {
 		key, ok := s.ScanIdentifier()
 		if !ok {
 			return nil, s.Errorf("missing key")
 		}
 
-		if !s.ScanChar(':') {
-			return nil, s.Errorf("missing ':'")
+		delim, _ := s.ScanChar()
+		if delim == ':' {
+			if lastDelim == '=' {
+				return nil, s.Errorf("missing '=', but got ':'")
+			}
+			lastDelim = delim
+		} else if delim == '=' {
+			if lastDelim == ':' {
+				return nil, s.Errorf("missing ':', but got '='")
+			}
+			lastDelim = delim
+		} else {
+			return nil, s.Errorf("missing delim ':' or '='")
 		}
 
 		value, ok := s.ScanString()

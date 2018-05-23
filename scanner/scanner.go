@@ -1,10 +1,10 @@
 package scanner
 
 import (
+	"errors"
 	"fmt"
 	"regexp"
 	"strconv"
-	"strings"
 	"unicode/utf8"
 )
 
@@ -46,10 +46,16 @@ const (
 	EOF rune = -1
 )
 
+var (
+	ErrEOF       = errors.New("reach at EOF")
+	ErrRuneError = errors.New("utf8 rune decode error")
+)
+
 // Scanner provides a convenient interface for reading unicode data using regexp match
 type Scanner struct {
 	input string
-	pos   int
+	pos   int   // byte pos on input
+	err   error // last error
 }
 
 // New creates a new Scanner
@@ -62,7 +68,11 @@ func New(input string) *Scanner {
 
 // Scan returns next matched string
 func (s *Scanner) Scan(re *regexp.Regexp) (string, bool) {
+	// reset
+	s.err = nil
+
 	if s.Eof() {
+		s.err = ErrEOF
 		return "", false
 	}
 
@@ -77,10 +87,6 @@ func (s *Scanner) Scan(re *regexp.Regexp) (string, bool) {
 
 // SkipWhitespaces skips whitespaces, and returns true if skipped > 0
 func (s *Scanner) SkipWhitespaces() bool {
-	if s.Eof() {
-		return false
-	}
-
 	_, ok := s.Scan(reWhitespaces)
 	return ok
 }
@@ -93,6 +99,7 @@ func (s *Scanner) ScanIdentifier() (string, bool) {
 // ScanIdentifier returns a string, the string can be quoted by '"', '\'', '`'
 func (s *Scanner) ScanString() (string, bool) {
 	if s.Eof() {
+		s.err = ErrEOF
 		return "", false
 	}
 
@@ -121,26 +128,12 @@ func (s *Scanner) ScanString() (string, bool) {
 	if quoted {
 		unquote, err := strconv.Unquote(find)
 		if err != nil {
+			s.err = fmt.Errorf("failed to Unquote(), %v", err)
 			return "", false
 		}
 		find = unquote
 	}
 	return find, true
-}
-
-// ScanChar returns whether next rune is matched with ch
-func (s *Scanner) ScanChar(ch rune) bool {
-	if s.Eof() {
-		return false
-	}
-
-	find, size := utf8.DecodeRuneInString(s.input[s.pos:])
-	if find != ch {
-		return false
-	}
-
-	s.pos += size
-	return true
 }
 
 // ScanInt64 returns an int64
@@ -151,6 +144,7 @@ func (s *Scanner) ScanInt64() (int64, bool) {
 	}
 	n, err := strconv.ParseInt(find, 10, 64)
 	if err != nil {
+		s.err = fmt.Errorf("failed to ParseInt(), %v", err)
 		return 0, false
 	}
 	return n, true
@@ -164,20 +158,43 @@ func (s *Scanner) ScanFloat64() (float64, bool) {
 	}
 	n, err := strconv.ParseFloat(find, 64)
 	if err != nil {
+		s.err = fmt.Errorf("failed to ParseFloat(), %v", err)
 		return 0, false
 	}
 	return n, true
 }
 
+// ScanChar returns next rune
+func (s *Scanner) ScanChar() (rune, bool) {
+	peek := s.Peek()
+
+	if peek == EOF || peek == utf8.RuneError {
+		return peek, false
+	}
+
+	s.pos += len(string(peek))
+	return peek, true
+}
+
 // ScanUntil returns text before delim
 func (s *Scanner) ScanUntil(delim rune) (string, bool) {
+	// reset
+	s.err = nil
+
 	if s.Eof() {
+		s.err = ErrEOF
 		return "", false
 	}
 
-	for i := s.pos; i < len(s.input); i++ {
+	i := s.pos
+	for i < len(s.input) {
 		find, size := utf8.DecodeRuneInString(s.input[i:])
 		if find == utf8.RuneError {
+			if size == 0 {
+				s.err = ErrEOF
+				return "", false
+			}
+			s.err = ErrRuneError
 			return "", false
 		}
 		if find == delim {
@@ -193,13 +210,22 @@ func (s *Scanner) ScanUntil(delim rune) (string, bool) {
 
 // Peek returns a rune, result may be EOF, utf8.RuneError
 func (s *Scanner) Peek() rune {
+	// reset
+	s.err = nil
+
 	if s.Eof() {
+		s.err = ErrEOF
 		return EOF
 	}
 
 	find, size := utf8.DecodeRuneInString(s.input[s.pos:])
-	if find == utf8.RuneError && size == 0 {
-		return EOF
+	if find == utf8.RuneError {
+		if size == 0 {
+			s.err = ErrEOF
+			return EOF
+		}
+		s.err = ErrRuneError
+		return utf8.RuneError
 	}
 
 	return find
@@ -207,18 +233,23 @@ func (s *Scanner) Peek() rune {
 
 // PeekN returns some runes, if no enough runes, return all
 func (s *Scanner) PeekN(n int) []rune {
+	// reset
+	s.err = nil
+
 	if s.Eof() {
 		return nil
 	}
 
 	runes := make([]rune, 0, n)
-	for i := s.pos; i < len(s.input); i++ {
+	i := s.pos
+	for i < len(s.input) {
 		find, size := utf8.DecodeRuneInString(s.input[i:])
 		if find == utf8.RuneError {
 			if size == 0 {
-				return runes // EOF
+				s.err = ErrEOF
+				return runes
 			}
-			// utf8 decode error
+			s.err = ErrRuneError
 			return nil
 		}
 		i += size
@@ -245,6 +276,11 @@ func (s *Scanner) Eof() bool {
 // Errorf reports an error with postion
 func (s *Scanner) Errorf(format string, args ...interface{}) error {
 	msg := fmt.Sprintf(format, args...)
+
+	if s.err != nil {
+		msg = msg + " " + s.err.Error()
+	}
+
 	if s.Eof() {
 		return fmt.Errorf("failed at EOF: %v", msg)
 	}
