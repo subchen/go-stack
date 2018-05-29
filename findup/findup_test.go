@@ -30,7 +30,7 @@ func TestFindGlobFileInCWD(t *testing.T) {
 func TestFindGlobFileInUpDir(t *testing.T) {
 	tmp := ".tmp/a/b/c"
 	_ = os.MkdirAll(tmp, 0755)
-	defer os.RemoveAll(tmp)
+	defer os.RemoveAll(".tmp")
 
 	path, _ := FindInDir(tmp, "findup.go")
 	if path != fullpath("findup.go") {
