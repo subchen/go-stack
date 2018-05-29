@@ -243,6 +243,7 @@ func (s *Scanner) ScanUntil(delim rune) (string, bool) {
 	return "", false
 }
 
+// ScanToEnd returns remaining text
 func (s *Scanner) ScanToEnd() string {
 	// reset
 	s.err = nil
