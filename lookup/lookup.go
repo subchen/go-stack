@@ -3,15 +3,14 @@ package lookup
 import (
 	"fmt"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"strings"
-	
+
 	"github.com/subchen/go-stack/fs"
 )
 
 var dirs = []string{
-	fs.GetProcessPWD(),
+	fs.GetProcessCWD(),
 	fs.GetProcessBinDir(),
 }
 
