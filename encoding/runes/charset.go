@@ -7,6 +7,7 @@ import (
 	"golang.org/x/text/encoding/simplifiedchinese"
 )
 
+// DecodeBytes converts data from charset to utf-8
 func DecodeBytes(data []byte, charset string) []byte {
 	charset = strings.ToUpper(charset)
 	if charset == "" || charset == "UTF8" || charset == "UTF-8" {
@@ -28,6 +29,7 @@ func DecodeBytes(data []byte, charset string) []byte {
 	return dst[:n]
 }
 
+// EncodeBytes converts data from utf-8 to charset
 func EncodeBytes(data []byte, charset string) []byte {
 	charset = strings.ToUpper(charset)
 	if charset == "" || charset == "UTF8" || charset == "UTF-8" {
