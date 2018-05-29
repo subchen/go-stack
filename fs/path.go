@@ -20,9 +20,9 @@ func GetProcessBinDir() string {
 	return dir
 }
 
-// GetProcessPWD returns process working directory
-func GetProcessPWD() string {
-	dir := os.Getenv("PWD")
+// GetProcessCWD returns process working directory
+func GetProcessCWD() string {
+	dir, _ := os.Getwd()
 	if dir == "" {
 		dir = "."
 	}
