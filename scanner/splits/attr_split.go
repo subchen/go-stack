@@ -6,6 +6,9 @@ import (
 	"github.com/subchen/go-stack/scanner"
 )
 
+// AttrSplit splits "attr1.attr2.[index].[key=value].[a:b]..." delimited by dot.
+// The attr can be quoted by '"", '\'', '`' if value has spaces
+// Example input: `nodes."availables".[0].status.[cpu=2.0]`
 func AttrSplit(input string) ([]string, error) {
 	attrs := make([]string, 0, 4)
 
