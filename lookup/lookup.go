@@ -6,11 +6,13 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
+	
+	"github.com/subchen/go-stack/fs"
 )
 
 var dirs = []string{
-	getWorkingdir(),
-	getProcessdir(),
+	fs.GetProcessPWD(),
+	fs.GetProcessBinDir(),
 }
 
 // AddSearchDir add dir to lookup
@@ -37,7 +39,7 @@ func AddGopkgDir(pkgname string) {
 func GetFile(filename string) string {
 	// skip if abs
 	if filepath.IsAbs(filename) {
-		if !exists(filename) {
+		if !fs.IsFile(filename) {
 			panic(fmt.Sprintf("file not found: %v", filename))
 		}
 		return filename
@@ -45,44 +47,10 @@ func GetFile(filename string) string {
 
 	// lookup in dirs
 	for _, dir := range dirs {
-		if f := filepath.Join(dir, filename); exists(f) {
+		if f := filepath.Join(dir, filename); fs.IsFile(f) {
 			return f
 		}
 	}
 
 	panic(fmt.Sprintf("file not found: %v", filename))
-}
-
-// working dir
-func getWorkingdir() string {
-	dir, err := os.Getwd()
-	if err != nil {
-		panic(err)
-	}
-	return dir
-}
-
-// process bin dir
-func getProcessdir() string {
-	app := os.Args[0]
-	if filepath.Base(app) == app {
-		file, err := exec.LookPath(app)
-		if err != nil {
-			panic(err)
-		}
-		app = file
-	}
-	dir, err := filepath.Abs(filepath.Dir(app))
-	if err != nil {
-		panic(err)
-	}
-	return dir
-}
-
-// file exists
-func exists(filename string) bool {
-	if _, err := os.Stat(filename); os.IsNotExist(err) {
-		return false
-	}
-	return true
 }
