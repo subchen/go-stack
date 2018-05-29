@@ -4,6 +4,7 @@ Common Utils for Golang
 [![Go Report Card](https://goreportcard.com/badge/github.com/subchen/go-stack)](https://goreportcard.com/report/github.com/subchen/go-stack)
 [![GoDoc](https://godoc.org/github.com/subchen/go-stack?status.svg)](https://godoc.org/github.com/subchen/go-stack)
 
+**WARNING**: This package is in developing.
 
 ## Installation
 

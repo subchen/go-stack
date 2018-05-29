@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/subchen/go-stack/conv"
-	"github.com/subchen/go-stack/ss"
+	"github.com/subchen/go-stack/scanner/splits"
 )
 
 type Query struct {
@@ -31,7 +31,10 @@ func (q *Query) Query(expr string) *conv.Value {
 	ctx := q.data
 	multi := false
 
-	paths := ss.SplitWithQuotes(expr, ".", `',"`, false)
+	paths, err := splits.AttrSplit(expr)
+	if err != nil {
+		panic(err)
+	}
 	for _, path := range paths {
 		if multi {
 			matchedCtx := make([]interface{}, 0)

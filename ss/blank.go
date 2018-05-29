@@ -5,7 +5,6 @@ import (
 	"unicode"
 )
 
-
 // DeleteWhitespaces deletes all whitespaces (unicode.IsSpace) in string.
 func DeleteWhitespaces(s string) string {
 	if len(s) == 0 {
@@ -25,7 +24,7 @@ func DeleteWhitespaces(s string) string {
 	if !changes {
 		return s
 	}
-	return buf.String()	
+	return buf.String()
 }
 
 // IsBlank returns whether a string is whitespace or empty.

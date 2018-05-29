@@ -53,7 +53,7 @@ func ReadFile(filename string, result interface{}) error {
 
 // WriteFile marshals data and writes to file
 func WriteFile(filename string, data interface{}) error {
-	bytes, err := MarshalIndent(data, "", "  ")
+	bytes, err := MarshalIndent(data)
 	if err != nil {
 		return err
 	}

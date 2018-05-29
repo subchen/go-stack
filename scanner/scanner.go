@@ -96,7 +96,42 @@ func (s *Scanner) ScanIdentifier() (string, bool) {
 	return s.Scan(reIdentifier)
 }
 
-// ScanIdentifier returns a string, the string can be quoted by '"', '\'', '`'
+// ScanQuoteString returns an quote string
+func (s *Scanner) ScanQuoteString() (string, bool) {
+	if s.Eof() {
+		s.err = ErrEOF
+		return "", false
+	}
+
+	var re *regexp.Regexp
+
+	peek := s.Peek()
+	switch peek {
+	case '"':
+		re = reStringDouble
+	case '\'':
+		re = reStringSingle
+	case '`':
+		re = reStringRaw
+	default:
+		s.err = errors.New("no quote string found")
+		return "", false
+	}
+
+	find, ok := s.Scan(re)
+	if !ok {
+		return "", false
+	}
+
+	unquote, err := strconv.Unquote(find)
+	if err != nil {
+		s.err = fmt.Errorf("failed to Unquote(), %v", err)
+		return "", false
+	}
+	return unquote, true
+}
+
+// ScanString returns a string, the string can be quoted by '"', '\'', '`'
 func (s *Scanner) ScanString() (string, bool) {
 	if s.Eof() {
 		s.err = ErrEOF
@@ -206,6 +241,18 @@ func (s *Scanner) ScanUntil(delim rune) (string, bool) {
 	}
 
 	return "", false
+}
+
+func (s *Scanner) ScanToEnd() string {
+	// reset
+	s.err = nil
+
+	find := s.input[s.pos:]
+
+	// move to eof
+	s.pos = len(s.input)
+
+	return find
 }
 
 // Peek returns a rune, result may be EOF, utf8.RuneError

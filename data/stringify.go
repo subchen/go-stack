@@ -1,6 +1,5 @@
 package data
 
-
 import (
 	"bytes"
 	"fmt"
