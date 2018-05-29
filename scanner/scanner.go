@@ -212,7 +212,7 @@ func (s *Scanner) ScanChar() (rune, bool) {
 }
 
 // ScanUntil returns text before delim
-func (s *Scanner) ScanUntil(delim rune) (string, bool) {
+func (s *Scanner) ScanUntil(delim rune, included bool) (string, bool) {
 	// reset
 	s.err = nil
 
@@ -233,6 +233,9 @@ func (s *Scanner) ScanUntil(delim rune) (string, bool) {
 			return "", false
 		}
 		if find == delim {
+			if included {
+				i += size
+			}
 			findstr := s.input[s.pos:i]
 			s.pos = i
 			return findstr, true

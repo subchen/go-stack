@@ -1,13 +1,13 @@
-package splits
+package splitattrs
 
 import (
 	"reflect"
 	"testing"
 )
 
-func TestAttrSplit(t *testing.T) {
+func TestSplit(t *testing.T) {
 	input := `nodes."availables".[0].status.[cpu=2.0]`
-	attrs, err := AttrSplit(input)
+	attrs, err := Split(input)
 	if err != nil {
 		t.Errorf("Got err: %v", err)
 		return

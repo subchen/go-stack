@@ -1,12 +1,12 @@
-package splits
+package splitkvmap
 
 import (
 	"testing"
 )
 
-func TestKVSplitUsingColon(t *testing.T) {
+func TestSplitUsingColon(t *testing.T) {
 	input := `exe:/bin/ls args:"-l -a --color"`
-	m, err := KVSplit(input)
+	m, err := Split(input)
 	if err != nil {
 		t.Errorf("Got err: %v", err)
 		return
@@ -23,9 +23,9 @@ func TestKVSplitUsingColon(t *testing.T) {
 	}
 }
 
-func TestKVSplitUsingEqual(t *testing.T) {
+func TestSplitUsingEqual(t *testing.T) {
 	input := `exe=/bin/ls args="-l -a --color"`
-	m, err := KVSplit(input)
+	m, err := Split(input)
 	if err != nil {
 		t.Errorf("Got err: %v", err)
 		return

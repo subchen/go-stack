@@ -1,4 +1,4 @@
-package splits
+package splitkvmap
 
 import (
 	"strings"
@@ -6,10 +6,12 @@ import (
 	"github.com/subchen/go-stack/scanner"
 )
 
-// KVSplit splits "key:value ..." delimited by whitespaces.
+// Split splits "key:value ..." delimited by whitespaces.
+//
 // The value can be quoted by '"", '\'', '`' if value has spaces
+//
 // Example input: `exe:/bin/ls args:"-l -a --color"`
-func KVSplit(input string) (map[string]string, error) {
+func Split(input string) (map[string]string, error) {
 	m := make(map[string]string)
 
 	s := scanner.New(strings.TrimSpace(input))

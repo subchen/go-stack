@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/subchen/go-stack/conv"
-	"github.com/subchen/go-stack/scanner/splits"
+	"github.com/subchen/go-stack/scanner/splitattrs"
 )
 
 type Query struct {
@@ -31,7 +31,7 @@ func (q *Query) Query(expr string) *conv.Value {
 	ctx := q.data
 	multi := false
 
-	paths, err := splits.AttrSplit(expr)
+	paths, err := splitattrs.Split(expr)
 	if err != nil {
 		panic(err)
 	}

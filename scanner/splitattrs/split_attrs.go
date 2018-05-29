@@ -1,4 +1,4 @@
-package splits
+package splitattrs
 
 import (
 	"strings"
@@ -6,12 +6,10 @@ import (
 	"github.com/subchen/go-stack/scanner"
 )
 
-// AttrSplit splits "attr1.attr2.[index].[key=value].[a:b]..." delimited by dot.
-//
+// Split splits "attr1.attr2.[index].[key=value].[a:b]..." delimited by dot.
 // The attr can be quoted by '"", '\'', '`' if value has spaces
-//
 // Example input: `nodes."availables".[0].status.[cpu=2.0]`
-func AttrSplit(input string) ([]string, error) {
+func Split(input string) ([]string, error) {
 	attrs := make([]string, 0, 4)
 
 	s := scanner.New(strings.TrimSpace(input))
@@ -26,15 +24,12 @@ func AttrSplit(input string) ([]string, error) {
 				return nil, s.Errorf("invalid quote string")
 			}
 		} else if peek == '[' {
-			attr, ok = s.ScanUntil(']')
+			attr, ok = s.ScanUntil(']', true)
 			if !ok {
 				return nil, s.Errorf("no `]` end")
 			}
-
-			_, _ = s.ScanChar() // skip ']'
-			attr += "]"
 		} else {
-			attr, ok = s.ScanUntil('.')
+			attr, ok = s.ScanUntil('.', false)
 			if !ok {
 				attr = s.ScanToEnd()
 			}
