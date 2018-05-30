@@ -2,7 +2,7 @@ Common Utils for Golang
 =========================
 
 [![GoDoc](https://godoc.org/github.com/subchen/go-stack?status.svg)](https://godoc.org/github.com/subchen/go-stack)
-[![Build Status](	https://img.shields.io/travis/subchen/go-stack.svg)](https://travis-ci.org/subchen/go-stack)
+[![Build Status](https://img.shields.io/travis/subchen/go-stack.svg)](https://travis-ci.org/subchen/go-stack)
 [![Coverage Status](https://coveralls.io/repos/github/subchen/go-stack/badge.svg)](https://coveralls.io/github/subchen/go-stack)
 [![Go Report Card](https://goreportcard.com/badge/github.com/subchen/go-stack)](https://goreportcard.com/report/github.com/subchen/go-stack)
 [![Release](https://img.shields.io/github/release/subchen/go-stack.svg)](https://github.com/subchen/go-stack/releases/latest)
@@ -27,5 +27,4 @@ go get github.com/subchen/go-stack
 
 ## License
 
-`go-stack` is released under the Apache 2.0 license.
-See [LICENSE](https://github.com/subchen/go-stack/blob/master/LICENSE)
+Apache 2.0 license. See [LICENSE](https://github.com/subchen/go-stack/blob/master/LICENSE)
