@@ -1,3 +1,6 @@
+// The retry package encapsulates the mechanism around retrying operation.
+//
+// It is a golang implementation for nodejs: https://www.npmjs.com/package/retry.
 package retry
 
 import (
