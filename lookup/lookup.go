@@ -1,14 +1,18 @@
 package lookup
 
 import (
-	"fmt"
+	"errors"
 	"os"
+	"path"
 	"path/filepath"
 	"strings"
 
 	"github.com/subchen/go-stack/fs"
 )
 
+var errNotFound = errors.New("file not found")
+
+// default search dirs
 var dirs = []string{
 	fs.GetProcessCWD(),
 	fs.GetProcessBinDir(),
@@ -34,22 +38,27 @@ func AddGopkgDir(pkgname string) {
 	}
 }
 
-// GetFile returns full filename in relative path
-func GetFile(filename string) string {
-	// skip if abs
-	if filepath.IsAbs(filename) {
-		if !fs.IsFile(filename) {
-			panic(fmt.Sprintf("file not found: %v", filename))
-		}
-		return filename
-	}
-
+// Find finds the first matched filename in search dirs
+func Find(filename ...string) (string, error) {
 	// lookup in dirs
 	for _, dir := range dirs {
-		if f := filepath.Join(dir, filename); fs.IsFile(f) {
-			return f
+		file, err := FindAt(dir, filename...)
+		if err == nil {
+			return file, nil
 		}
 	}
 
-	panic(fmt.Sprintf("file not found: %v", filename))
+	return "", errNotFound
+}
+
+// FindAt finds the first matched filename in given dir
+func FindAt(dir string, filename ...string) (string, error) {
+	for _, file := range filename {
+		matches, err := filepath.Glob(path.Join(dir, file))
+		if err == nil && len(matches) > 0 {
+			return matches[0], nil
+		}
+	}
+
+	return "", errNotFound
 }
