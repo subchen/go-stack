@@ -324,7 +324,7 @@ func (s *Scanner) Eof() bool {
 	return s.pos >= len(s.input)
 }
 
-// Errorf reports an error with postion
+// Errorf reports an error with position
 func (s *Scanner) Errorf(format string, args ...interface{}) error {
 	msg := fmt.Sprintf(format, args...)
 
