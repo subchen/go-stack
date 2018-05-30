@@ -12,7 +12,7 @@ type SkipDirFunc func(path string, info os.FileInfo) bool
 
 // AcceptFunc is the function called for each file, return true to accpet file.
 //
-// The param path is an absolute patn
+// The param path is an absolute path
 type AcceptFunc func(path string, info os.FileInfo) bool
 
 // FindFiles finds matches file in root dir.
@@ -30,6 +30,7 @@ func FindFiles(root string, acceptFn AcceptFunc, skipDirFn SkipDirFunc, relative
 		if err != nil {
 			return err
 		}
+
 		// dir
 		if info.IsDir() {
 			if skipDirFn != nil && skipDirFn(path, info) {
