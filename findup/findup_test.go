@@ -32,7 +32,7 @@ func TestFindGlobFileInUpDir(t *testing.T) {
 	_ = os.MkdirAll(tmp, 0755)
 	defer os.RemoveAll(".tmp")
 
-	path, _ := FindInDir(tmp, "findup.go")
+	path, _ := FindAt(tmp, "findup.go")
 	if path != fullpath("findup.go") {
 		t.Fatalf("file was found")
 	}
