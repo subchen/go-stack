@@ -1,3 +1,4 @@
+// The findup package is to find up a file in ancestor's dir
 package findup
 
 import (
@@ -13,8 +14,8 @@ func Find(filename ...string) (string, error) {
 	return lookup(wd, filename)
 }
 
-// FindInDir finds the first filename matching in the directory or the nearest ancestor directory up to root.
-func FindInDir(dir string, filename ...string) (string, error) {
+// FindAt finds the first filename matching in the given directory or the nearest ancestor directory up to root.
+func FindAt(dir string, filename ...string) (string, error) {
 	wd, _ := filepath.Abs(dir)
 	return lookup(wd, filename)
 }
