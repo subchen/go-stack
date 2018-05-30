@@ -22,7 +22,7 @@ type Operation struct {
 // RetryFunc is func, attampt is 0-based
 type RetryFunc func(attempt int) error
 
-// Attampt accpets the function fn that is to be retried and executes it.
+// Attampt accepts the function fn that is to be retried and executes it.
 func (o *Operation) Attempt(fn RetryFunc) error {
 	retries := o.Retries
 	minInteval := o.MinInteval
