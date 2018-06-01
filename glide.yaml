@@ -1,6 +1,0 @@
-package: github.com/subchen/go-stack
-import:
-- package: golang.org/x/text
-  subpackages:
-  - encoding
-  - encoding/simplifiedchinese
