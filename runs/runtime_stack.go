@@ -150,7 +150,7 @@ func trimGOPATH(file, name string) (string, string) {
 	}
 
 	if pos := strings.LastIndex(path, "/"); pos != -1 {
-		name = name[pos+1 : len(name)]
+		name = name[pos+1:]
 	}
 	return file, name
 }

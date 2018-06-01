@@ -92,7 +92,7 @@ func (m *InterfaceInterfaceMap) IsEmpty() bool {
 func (m *InterfaceInterfaceMap) Keys() []interface{} {
 	var keys []interface{}
 	m.mutex.RLock()
-	for k, _ := range m.data {
+	for k := range m.data {
 		keys = append(keys, k)
 	}
 	m.mutex.RUnlock()

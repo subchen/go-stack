@@ -104,7 +104,7 @@ func (m *InterfaceInterfaceCOWMap) Keys() []interface{} {
 	data := m.data.Load().(map[interface{}]interface{})
 
 	var keys []interface{}
-	for k, _ := range data {
+	for k := range data {
 		keys = append(keys, k)
 	}
 	return keys
