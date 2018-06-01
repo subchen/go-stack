@@ -7,15 +7,15 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/subchen/go-stack/fs"
+	"github.com/subchen/go-stack/process"
 )
 
 var errNotFound = errors.New("file not found")
 
 // default search dirs
 var dirs = []string{
-	fs.GetProcessCWD(),
-	fs.GetProcessBinDir(),
+	process.GetCwd(),
+	process.Dir(),
 }
 
 // AddSearchDir add dir to lookup
