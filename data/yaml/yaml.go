@@ -3,7 +3,7 @@ package yaml
 import (
 	"io/ioutil"
 
-	"github.com/go-yaml/yaml"
+	"gopkg.in/yaml.v2"
 	"github.com/subchen/go-stack/data"
 )
 
